@@ -5,6 +5,7 @@ Repository for group semestral project. Course Development of Progressive Web Ap
 ## Tasks
 [] design the web
 [] implement the designs
+[x] log in and registration switching
 [] create DB model
 [] setup backend in node/Adonis
 ## Requirements
