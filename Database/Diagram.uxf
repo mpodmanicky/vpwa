@@ -1,0 +1,25 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>40</x><y>70</y><w>240</w><h>170</h></coordinates><panel_attributes>_table: USERS_
+-
+-id(Primary Key)
+-name(varchar 42)
+-username(varchar 16)
+-email(varchar 255)
+-password(varchar 255)
+-userState(enum)
+-notfState(enum)
+-
+-user_id(Foreign Key) USER_MESSAGES
+-user_id(Foreign Key) USER_CHANNELS</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>70</y><w>280</w><h>100</h></coordinates><panel_attributes>_table: MESSAGES_
+--
+-id(Primary Key)
+-message(text)
+--
+-message_id(Foreign Key) USER_MESSAGES
+-message_id(Foreign Key) CHANNEL_MESSAGES</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>590</x><y>70</y><w>280</w><h>110</h></coordinates><panel_attributes>_table: Channels_
+--
+-id(Primary Key)
+-name(varchar 50)
+-owner(varchar 16)
+--
+-channel_id(Foreign Key) CHANNEL_MESSAGES
+-channel_id(Foreign Key) USER_CHANNELS</panel_attributes><additional_attributes></additional_attributes></element></diagram>
