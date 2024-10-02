@@ -28,18 +28,28 @@ import ChatComponent from './ChatComponent.vue';
     display: flex;
     height: 100vh;
     width: 100vw;
+    background-color: #40095C;
+    
 }
 .side-box {
     width: 80px;
     color: white;
+    border-right: 2px black solid;
+
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start;
+
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 .channels-box {
-    flex: 3; 
+    flex: 1; 
+    
   }
 .chat-box{
-    flex: 1;
-}  
-
-  
+    flex: 6;
+}    
 
 </style>
