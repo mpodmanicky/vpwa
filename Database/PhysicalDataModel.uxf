@@ -1,0 +1,39 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>0</x><y>28</y><w>240</w><h>170</h></coordinates><panel_attributes>_table: USERS_
+-
+-id(Primary Key)
+-name(varchar 42)
+-username(varchar 16)
+-email(varchar 255)
+-password(varchar 255)
+-userState(enum)
+-notfState(enum)
+-
+-user_id(Foreign Key) USER_MESSAGES
+-user_id(Foreign Key) USER_CHANNELS</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>428</y><w>280</w><h>100</h></coordinates><panel_attributes>_table: MESSAGES_
+--
+-id(Primary Key)
+-message(text)
+--
+-message_id(Foreign Key) USER_MESSAGES
+-message_id(Foreign Key) CHANNEL_MESSAGES</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>58</y><w>280</w><h>110</h></coordinates><panel_attributes>_table: Channels_
+--
+-id(Primary Key)
+-name(varchar 50)
+-owner(varchar 16)
+--
+-channel_id(Foreign Key) CHANNEL_MESSAGES
+-channel_id(Foreign Key) USER_CHANNELS</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>268</y><w>210</w><h>70</h></coordinates><panel_attributes>_table: USER_MESSAGES_
+--
+-message_id(Foreign Key)
+-user_id(Foreign Key)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>268</y><w>210</w><h>70</h></coordinates><panel_attributes>_table: USER_CHANNELS_
+--
+-channel_id(Foreign Key)
+-user_id(Foreign Key)
+-banned(boolean)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>500</x><y>268</y><w>210</w><h>70</h></coordinates><panel_attributes>_table: CHANNEL_MESSAGES_
+--
+-message_id(Foreign Key)
+-channel_id(Foreign Key)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>80</x><y>188</y><w>50</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=0..n</panel_attributes><additional_attributes>10;80;30;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>188</y><w>140</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=0..n</panel_attributes><additional_attributes>120;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>590</x><y>158</y><w>50</w><h>130</h></coordinates><panel_attributes>lt=-
+m1=0..n</panel_attributes><additional_attributes>10;110;20;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>158</y><w>150</w><h>130</h></coordinates><panel_attributes>lt=-
+m1=0..n</panel_attributes><additional_attributes>10;110;130;10</additional_attributes></element></diagram>

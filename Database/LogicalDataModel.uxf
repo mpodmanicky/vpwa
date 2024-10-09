@@ -1,0 +1,36 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>230</x><y>50</y><w>210</w><h>130</h></coordinates><panel_attributes>User
+--
+name
+username
+email
+hashed password
+userState
+notfState
+
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>50</y><w>210</w><h>130</h></coordinates><panel_attributes>Channel
+--
+name
+owner
+bannedUsers
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>380</y><w>210</w><h>130</h></coordinates><panel_attributes>Message
+--
+owner
+text
+date
+time
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>170</y><w>150</w><h>240</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+writes a message
+respond to message</panel_attributes><additional_attributes>10;10;10;210;130;210</additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>170</y><w>230</w><h>240</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+send message
+display message
+block message
+delete message</panel_attributes><additional_attributes>120;10;120;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>90</y><w>260</w><h>60</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+create channel
+bann user
+invite user</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element></diagram>
