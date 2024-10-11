@@ -1,106 +1,98 @@
-<template>
-  <q-layout view="lHh Lpr lFf">
+<template> 
+  <q-layout view="lHh Lpr lFf" class="layout">
     <q-header elevated>
       <q-toolbar>
-        <!-- <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        /> -->
-
         <q-toolbar-title>
-          slack clone
+          Slack Clone
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <!-- <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer> -->
-
-    <q-page-container>
+    <q-page-container class="page-container">
+      
       <router-view />
+  
     </q-page-container>
+
+    <q-footer class="text-white q-pa-xs footer">
+      <div class="text-center footer-content">
+        <div class="authors">
+          <p>Lucas Espitia and Martin Podmanicky</p>
+        </div>
+        <div class="contact">
+          <p>
+            <a href="mailto:xespitiacorredo@stuba.sk" class="email-link">xespitiacorredo@stuba.sk</a>
+          </p>
+          <p>
+            <a href="mailto:xpodmanickym@stuba.sk" class="email-link">xpodmanickym@stuba.sk</a>
+          </p>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2024 <strong>FIIT</strong></p>
+        </div>
+      </div>
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
 defineOptions({
-  name: 'MainLayout'
-})
-
-// const linksList = [
-//   {
-//     title: 'Docs',
-//     caption: 'quasar.dev',
-//     icon: 'school',
-//     link: 'https://quasar.dev'
-//   },
-//   {
-//     title: 'Github',
-//     caption: 'github.com/quasarframework',
-//     icon: 'code',
-//     link: 'https://github.com/quasarframework'
-//   },
-//   {
-//     title: 'Discord Chat Channel',
-//     caption: 'chat.quasar.dev',
-//     icon: 'chat',
-//     link: 'https://chat.quasar.dev'
-//   },
-//   {
-//     title: 'Forum',
-//     caption: 'forum.quasar.dev',
-//     icon: 'record_voice_over',
-//     link: 'https://forum.quasar.dev'
-//   },
-//   {
-//     title: 'Twitter',
-//     caption: '@quasarframework',
-//     icon: 'rss_feed',
-//     link: 'https://twitter.quasar.dev'
-//   },
-//   {
-//     title: 'Facebook',
-//     caption: '@QuasarFramework',
-//     icon: 'public',
-//     link: 'https://facebook.quasar.dev'
-//   },
-//   {
-//     title: 'Quasar Awesome',
-//     caption: 'Community Quasar projects',
-//     icon: 'favorite',
-//     link: 'https://awesome.quasar.dev'
-//   }
-// ]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
+  name: 'MainLayout',
+});
 </script>
+
+<style scoped>
+.page-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  min-height: 100vh; 
+  overflow-y: auto;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  height: auto;
+  padding: 10px 0;
+}
+
+.email-link {
+  color: white;
+  text-decoration: none;
+}
+
+.email-link:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.email-link:focus {
+  outline: none;
+}
+
+
+.footer-content p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 5px 0;
+  }
+
+  .footer-content p {
+    margin: 2px 0;
+    font-size: 12px;
+  }
+
+  .email-link {
+    font-size: 12px;
+  }
+}
+</style>

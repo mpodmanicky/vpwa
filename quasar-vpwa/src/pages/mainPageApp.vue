@@ -2,23 +2,23 @@
     <div class="chat-page q-gutter-sm">
         <!--Sidebar-->
         <div class="side-box q-pa-xs">
-            <SidebarComponent />
+            <SideBarTemplate />
         </div>
         <!--ChannelsBox-->
-        <div class="channels-box q-pa-xs">
-            <ChannelsComponent />
+        <div class="channels-box q-pa-xs q-gutter-sm">
+            <ChannelsTemplate />
         </div>
         <!--ChatBox-->
         <div class="chat-box q-pa-xs">
-            <ChatComponent />
+            <ChatTemplate />
         </div>
     </div>
 </template>    
 
 <script setup>
-import SidebarComponent from './SidebarComponent.vue';
-import ChannelsComponent from './ChannelsComponent.vue';
-import ChatComponent from './ChatComponent.vue';
+import SideBarTemplate from '../components/SideBarTemplate.vue';
+import ChannelsTemplate from '../components/ChannelsTemplate.vue';
+import ChatTemplate from '../components/ChatTemplate.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -28,8 +28,7 @@ import ChatComponent from './ChatComponent.vue';
     display: flex;
     height: 100vh;
     width: 100vw;
-    background-color: #40095C;
-    
+    background-color: $primary;   
 }
 .side-box {
     width: 80px;
@@ -46,10 +45,15 @@ import ChatComponent from './ChatComponent.vue';
   }
 .channels-box {
     flex: 1; 
-    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
   }
 .chat-box{
     flex: 6;
 }    
-
 </style>
