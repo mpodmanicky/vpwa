@@ -1,28 +1,37 @@
-<!--
-    Task
-
-
--->
-
 <template>
-    <div class="menu-group">
-      <q-btn icon="groups" @click="handleGroupsClick" />
-      <q-btn icon="people" @click="handlePeopleClick" />
-    </div>
-  
-    <div class="add-group">
-      <q-btn icon="add_box" @click="handleAddGroupClick" />
-    </div>
+  <div class="menu-group q-gutter-sm">
+    <q-btn 
+      id="buttonMyOwngroups"
+      icon="groups" 
+      @click="handleMyOwnGroupsClick" 
+      round 
+      class="menu-buttons"
+      size="md"
+    />
+    <q-btn 
+      id="buttonMyGroups"
+      icon="people"
+      @click="handleMyGroupsClick"
+      round  
+      size="md"
+     />
+    <q-btn 
+      id="buttonAddGroup"
+      icon="add_box" 
+      @click="handleAddGroupClick" 
+      round 
+      size="md"
+    />
+  </div>
+
 </template>
 
 <script setup>
-    function handleGroupsClick() {
 
-    }
-    function handlePeopleClick() {
+import { ref } from 'vue';
 
-    }
-    function handleAddGroupClick() {
+function handleMyOwnGroupsClick() {}
+function handleMyGroupsClick() {}
+function handleAddGroupClick() {}
 
-    }
 </script>

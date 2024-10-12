@@ -1,59 +1,48 @@
 <template>
-    <div class="chat-page q-gutter-sm">
-        <!--Sidebar-->
-        <div class="side-box q-pa-xs">
-            <SideBarTemplate />
-        </div>
+    <q-page padding>
+      <div class="chat-page q-gutter-sm">
         <!--ChannelsBox-->
-        <div class="channels-box q-pa-xs q-gutter-sm">
-            <ChannelsTemplate />
+        <div class="channels-box  q-gutter-sm">
+          <ChannelsTemplate />
         </div>
         <!--ChatBox-->
         <div class="chat-box q-pa-xs">
-            <ChatTemplate />
+          <!-- <ChatTemplate /> -->
         </div>
-    </div>
-</template>    
-
-<script setup>
-import SideBarTemplate from '../components/SideBarTemplate.vue';
-import ChannelsTemplate from '../components/ChannelsTemplate.vue';
-import ChatTemplate from '../components/ChatTemplate.vue';
-</script>
-
-<style lang="scss" scoped>
-@import 'src/css/quasar.variables.scss';
-
-.chat-page {
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    background-color: $primary;   
-}
-.side-box {
-    width: 80px;
-    color: white;
-    border-right: 2px black solid;
-
-    display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: flex-start;
-
-    overflow-y: auto;
-    overflow-x: hidden;
+      </div>
+  </q-page>
+  </template>
+  
+  <script setup>
+  import ChannelsTemplate from '../components/ChannelsTemplate.vue';
+  import ChatTemplate from '../components/ChatTemplate.vue';
+  </script>
+  
+  <style lang="scss" scoped>
+  @import 'src/css/quasar.variables.scss';
+  .q-page{
+    background-color: $secondary;
   }
-.channels-box {
-    flex: 1; 
+  .chat-page {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    height: 87vh;
+    background-color: $secondary;
+    
+  }
+  
+  .channels-box {
+    width: 200px;  
     justify-content: flex-start;
-
+    border-right: 1px solid black;
     overflow-x: hidden;
     overflow-y: auto;
-
+    @media screen and (max-width: 780px) {  
+    width: 150px;
   }
-.chat-box{
+  }
+  .chat-box {
     flex: 6;
-}    
-</style>
+  }
+  </style>
+  q
