@@ -6,8 +6,15 @@
     <div class="welcome-page">
       <div class="welcome-text">
         <h1>Slack Clone</h1>
-        <h3>Slack brings the <br> team together <br> wherever you are</h3>
-        <p>Web browser application developed by Martin Podmanicky,<br> Lucas Espitia.</p>
+        <h3>
+          Slack brings the <br />
+          team together <br />
+          wherever you are
+        </h3>
+        <p>
+          Web browser application developed by Martin Podmanicky,<br />
+          Lucas Espitia.
+        </p>
       </div>
 
       <div class="signup-container">
@@ -34,24 +41,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import LogInTemplate from 'src/components/LogInTemplate.vue';
-import RegisterTemplate from 'src/components/RegisterTemplate.vue';
+import { ref } from "vue";
+import LogInTemplate from "src/components/LogInTemplate.vue";
+import RegisterTemplate from "src/components/RegisterTemplate.vue";
 
 const isLogIn = ref(true);
 
 defineOptions({
-  name: 'IndexPage'
+  name: "IndexPage",
 });
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/quasar.variables.scss';
+@import "src/css/quasar.variables.scss";
 
 .welcome-page {
   // @media screen and (max-width: 600px) {
   //   height: 100%;
   // }
+  min-height: inherit;
   background-color: $secondary;
   display: flex;
   flex-wrap: wrap;
@@ -61,7 +69,7 @@ defineOptions({
 }
 
 .welcome-text {
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .input-field {
@@ -69,13 +77,15 @@ defineOptions({
   color: white;
 }
 
-h1, h3, p {
+h1,
+h3,
+p {
   // @media screen and (max-width: 600px) {
-  //   margin: 15px 15%;  
+  //   margin: 15px 15%;
   // }
   margin: 15px 150px;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
 }
 
@@ -87,7 +97,8 @@ p {
   // @media (min-width: 768px) {
   //   margin: 15px 15px;
   // }
-  margin: 15px 150px;}
+  margin: 15px 150px;
+}
 
 .control-buttons {
   display: flex;
