@@ -1,13 +1,14 @@
 <template>
     <div class="chat-page q-gutter-sm">
+        <p>Ahoj</p>
         <!--Sidebar-->
         <div class="side-box q-pa-xs">
             <SidebarComponent />
         </div>
         <!--ChannelsBox-->
-        <div class="channels-box q-pa-xs">
+        <!-- <div class="channels-box q-pa-xs">
             <ChannelsComponent />
-        </div>
+        </div> -->
         <!--ChatBox-->
         <div class="chat-box q-pa-xs">
             <ChatComponent />
@@ -16,9 +17,9 @@
 </template>    
 
 <script setup>
-import SidebarComponent from './SidebarComponent.vue';
-import ChannelsComponent from './ChannelsComponent.vue';
-import ChatComponent from './ChatComponent.vue';
+import SidebarComponent from 'src/components/SideBar.vue';
+// import ChannelsComponent from './ChannelsComponent.vue';
+import ChatComponent from 'src/components/ChatTemplate.vue';
 </script>
 
 <style lang="scss" scoped>

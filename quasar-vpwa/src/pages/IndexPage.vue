@@ -1,3 +1,6 @@
+<!--Martin Podmanicky, 
+  Log-in and registration Page.
+-->
 <template>
   <div class="welcome-page">
     <div class="welcome-text">
@@ -52,25 +55,25 @@ defineOptions({
 }
 .welcome-page {
   background-color: $secondary;
-  @media screen and (max-width: 600px) {
-    height: 100%;
-  }
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   color: white;
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
 }
 
 h1, h3, p {
   margin: 15px 150px;
-  @media screen and (max-width: 600px) {
-    margin: 15px 15%;  
-  }
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
+  @media screen and (max-width: 600px) {
+    margin: 15px 15%;  
+  }
 }
 
 p {
