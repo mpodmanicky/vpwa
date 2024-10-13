@@ -4,7 +4,7 @@
   [] Implement the v-for for the groups when we have the database. 
 
 -->
-<template>
+<!-- <template>
     <q-layout view="lHh Lpr lFf"  class="shadow-2 rounded-borders">
       <q-header elevated>
         <q-toolbar>
@@ -61,4 +61,4 @@
   });
   </script>
   
-  
+   -->

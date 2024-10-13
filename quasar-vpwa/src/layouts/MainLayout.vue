@@ -1,20 +1,27 @@
 <template> 
-  <q-layout view="lHh Lpr lFf" class="layout">
+  <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
           Slack Clone
         </q-toolbar-title>
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-page-container class="page-container">
-      
+    <q-page-container>
       <router-view />
-  
     </q-page-container>
 
-    <q-footer class="text-white q-pa-xs footer">
+    <q-footer>
+      <div class="footer-text">
+        <p>Lucas Espitia, Martin Podmanicky</p>
+        <p>2024</p>
+        <p>FIIT, STU in Bratislava</p>
+      </div>
+    </q-footer>
+
+    <!-- <q-footer class="text-white q-pa-xs footer">
       <div class="text-center footer-content">
         <div class="authors">
           <p>Lucas Espitia and Martin Podmanicky</p>
@@ -31,7 +38,7 @@
           <p>&copy; 2024 <strong>FIIT</strong></p>
         </div>
       </div>
-    </q-footer>
+    </q-footer> -->
   </q-layout>
 </template>
 
@@ -41,58 +48,11 @@ defineOptions({
 });
 </script>
 
-<style scoped>
-.page-container {
+<style lang="scss" scoped>
+
+.footer-text {
+  margin: 10px 10px 0px 10px;
   display: flex;
-  flex-direction: column;
-  flex: 1; 
-  min-height: 100vh; 
-  overflow-y: auto;
-}
-
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.footer {
-  height: auto;
-  padding: 10px 0;
-}
-
-.email-link {
-  color: white;
-  text-decoration: none;
-}
-
-.email-link:hover {
-  color: blue;
-  text-decoration: underline;
-}
-
-.email-link:focus {
-  outline: none;
-}
-
-
-.footer-content p {
-  margin: 5px 0;
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 5px 0;
-  }
-
-  .footer-content p {
-    margin: 2px 0;
-    font-size: 12px;
-  }
-
-  .email-link {
-    font-size: 12px;
-  }
+  justify-content: space-between;
 }
 </style>

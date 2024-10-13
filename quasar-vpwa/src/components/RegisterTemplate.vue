@@ -1,7 +1,6 @@
 <template>
-    <q-input v-model="name" standout dense bg-color="accent" type="text" label="Name" style="margin: 15px 0;"/>
-    <q-input v-model="surname" standout dense bg-color="accent" type="text" label="Surname" style="margin: 15px 0;"/>
-    <q-input v-model="nickname" standout dense bg-color="accent" type="text" label="Nickname" style="margin: 15px 0;"/> 
+    <q-input v-model="text" standout dense bg-color="accent" type="text" label="Name" style="margin: 15px 0; width: 300px;"/>
+    <q-input v-model="text" standout dense bg-color="accent" type="text" label="Username" style="margin: 15px 0;"/> 
     <q-input v-model="email" standout dense bg-color="accent" type="email" label="Email" style="margin: 15px 0;"/>
     <q-input v-model="password" standout dense bg-color="accent" :type=" isPwd ? 'password' : 'text'" label="Password" style="margin: 15px 0;">
         <template v-slot:append>
@@ -14,21 +13,12 @@
 import { ref } from 'vue';
 
 export default {
-    setup() {
-        const isPwd = ref(true);
-        const password = ref('');
-        const email = ref('');
-        const name = ref('');   
-        const surname = ref(''); 
-        const nickname = ref(''); 
-
+    setup() { 
         return {
-            isPwd,
-            password,
-            email,
-            name,  
-            surname, 
-            nickname 
+            isPwd: ref(true),
+            text: ref(''),   
+            email: ref(''),
+            password: ref('')
         };
     }
 }

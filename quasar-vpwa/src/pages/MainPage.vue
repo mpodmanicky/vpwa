@@ -1,24 +1,21 @@
 <template>
-    <div class="chat-page q-gutter-sm">
-        <!--Sidebar-->
-        <div class="side-box q-pa-xs">
-            <SidebarComponent />
+    <q-page>
+        <div class="chat-page q-gutter-sm">
+            <!--ChannelsBox-->
+            <div class="channels-box q-pa-xs">
+                <ChannelsComponent />
+            </div>
+            <!--ChatBox-->
+            <div class="chat-box q-pa-xs">
+                <ChatComponent />
+            </div>
         </div>
-        <!--ChannelsBox-->
-        <div class="channels-box q-pa-xs">
-            <ChannelsComponent />
-        </div>
-        <!--ChatBox-->
-        <div class="chat-box q-pa-xs">
-            <ChatComponent />
-        </div>
-    </div>
+    </q-page>
 </template>    
 
 <script setup>
-import SidebarComponent from './SidebarComponent.vue';
-import ChannelsComponent from './ChannelsComponent.vue';
-import ChatComponent from './ChatComponent.vue';
+import ChannelsComponent from 'src/components/ChannelsTemplate.vue';
+import ChatComponent from 'src/components/ChatTemplate.vue';
 </script>
 
 <style lang="scss" scoped>
