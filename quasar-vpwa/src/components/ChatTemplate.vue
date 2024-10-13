@@ -16,7 +16,7 @@
       <div class="row q-pa-md q-mt-md" style="position: sticky; bottom: 0;">
         <q-input
           v-model="newMessage"
-          placeholder="Escribe un mensaje"
+          placeholder="Write a message"
           filled
           @keyup.enter="sendMessage"
           style="width: 100%;"

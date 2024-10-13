@@ -1,3 +1,6 @@
+<!--Martin Podmanicky, 
+  Log-in and registration Page.
+-->
 <template>
   <q-page padding>
     <div class="welcome-page">
@@ -52,45 +55,29 @@ defineOptions({
 
 .welcome-page {
   background-color: $secondary;
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  padding: 20px;
-  min-height: calc(75vh - 80px); 
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 100px; 
-  }
 }
 
-.welcome-text {
-  text-align: center;
-  margin-bottom: 20px;
-
-  @media (min-width: 768px) {
-    text-align: left;
-    width: 50%;
+h1, h3, p {
+  margin: 15px 150px;
+  @media screen and (max-width: 600px) {
+    margin: 15px 15%;  
   }
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+}
 
-  .title {
-    font-size: 5vw;
-    margin: 0;
-  }
-
-  .subtitle {
-    font-size: 2.5vw;
-    margin: 10px 0;
-  }
-
-  .developers-info {
-    font-size: 14px;
-    font-weight: 300;
-  }
+p {
+  font-weight: 300;
 }
 
 .signup-container {
