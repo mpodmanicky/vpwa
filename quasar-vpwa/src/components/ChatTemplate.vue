@@ -3,11 +3,11 @@
     <div class="chat-parent q-col q-col-12 full-width" style="overflow-y: auto;">
 
       <div v-for="(message, index) in messages" :key="index">
-       
+
         <q-chat-message
           :text="[message.text]"
           :name="message.sender"
-          :reverse="message.sender === userNickname" 
+          :reverse="message.sender === userNickname"
           :sent="message.sender === userNickname"
           :received="message.sender !== userNickname"
           :avatar="message.avatar"
@@ -24,13 +24,14 @@
       </div>
     </div>
   </template>
-  
+
   <script>
 
 
 
   </script>
-  
-  <style scoped>
+
+  <style lang="scss" scoped>
+
   </style>
-  
+
