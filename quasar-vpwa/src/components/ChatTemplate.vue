@@ -1,37 +1,14 @@
-<!--IN DEVELOPMENT-->
 <template>
-    <div class="chat-parent q-col q-col-12 full-width" style="overflow-y: auto;">
+  whole chat template
+  <div class="messages">
+    <MessageTemplate />
+  </div>
+</template>
 
-      <div v-for="(message, index) in messages" :key="index">
+<script setup>
+import MessageTemplate from 'src/components/MessageTemplate.vue';
+</script>
 
-        <q-chat-message
-          :text="[message.text]"
-          :name="message.sender"
-          :reverse="message.sender === userNickname"
-          :sent="message.sender === userNickname"
-          :received="message.sender !== userNickname"
-          :avatar="message.avatar"
-        />
-      </div>
-      <div class="row q-pa-md q-mt-md" style="position: sticky; bottom: 0;">
-        <q-input
-          v-model="newMessage"
-          placeholder="Write a message"
-          filled
-          @keyup.enter="sendMessage"
-          style="width: 100%;"
-        />
-      </div>
-    </div>
-  </template>
+<style lang="scss" scoped>
 
-  <script>
-
-
-
-  </script>
-
-  <style lang="scss" scoped>
-
-  </style>
-
+</style>
