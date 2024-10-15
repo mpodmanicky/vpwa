@@ -1,15 +1,9 @@
 <template>
     <q-page>
-        <div class="chat-page q-gutter-sm">
-            <!--ChannelsBox-->
-            <div class="channels-box q-pa-xs">
-                <ChannelsComponent />
-            </div>
-            <!--ChatBox-->
-            <div class="chat-box q-pa-xs">
-                <ChatComponent />
-            </div>
-        </div>
+        <!--The main page templates and components will go right here, all of em' will be responsive
+        and modular, to be able to move them anywhere
+        all logic is inside each component-->
+        ahoj
     </q-page>
 </template>    
 
