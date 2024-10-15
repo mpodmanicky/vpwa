@@ -56,13 +56,10 @@ defineOptions({
 @import "src/css/quasar.variables.scss";
 
 .welcome-page {
-  // @media screen and (max-width: 600px) {
-  //   height: 100%;
-  // }
   min-height: inherit;
   background-color: $secondary;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   color: white;
