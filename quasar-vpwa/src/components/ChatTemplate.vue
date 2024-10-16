@@ -5,6 +5,7 @@
   </div>
   <div class="messages">
     <!--incoming messages will be displayed on the left side of the chat while outgoing on the right side-->
+    <!--div needs to be scrollable-->
     <MessageTemplate />
     <MessageTemplate />
     <MessageTemplate id="outgoing"></MessageTemplate>
@@ -29,11 +30,5 @@ import CommandlineTemplate from 'src/components/CommandlineTemplate.vue'
 #channel-name{
   padding: 5px;
   margin-left: 5px;
-}
-#outgoing{
-  float: right;
-}
-#command-line{
-  float: bottom;
 }
 </style>
