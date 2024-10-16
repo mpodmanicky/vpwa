@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>230</x><y>50</y><w>210</w><h>130</h></coordinates><panel_attributes>User
+<diagram program="umletino" version="15.1"><zoom_level>13</zoom_level><element><id>UMLClass</id><coordinates><x>78</x><y>0</y><w>273</w><h>169</h></coordinates><panel_attributes>User
 --
 name
 username
@@ -7,30 +7,81 @@ hashed password
 userState
 notfState
 
-bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>50</y><w>210</w><h>130</h></coordinates><panel_attributes>Channel
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>650</x><y>0</y><w>273</w><h>169</h></coordinates><panel_attributes>Channel
 --
 name
 owner
 bannedUsers
-bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>380</y><w>210</w><h>130</h></coordinates><panel_attributes>Message
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>351</x><y>429</y><w>273</w><h>169</h></coordinates><panel_attributes>Message
 --
 owner
 text
 date
 time
-bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>170</y><w>150</w><h>240</h></coordinates><panel_attributes>lt=-
+bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>182</x><y>156</y><w>195</w><h>312</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+
+
+
+
+
+write
+</panel_attributes><additional_attributes>10;10;10;210;130;210</additional_attributes></element><element><id>Relation</id><coordinates><x>611</x><y>156</y><w>234</w><h>312</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..n
-writes a message
-respond to message</panel_attributes><additional_attributes>10;10;10;210;130;210</additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>170</y><w>230</w><h>240</h></coordinates><panel_attributes>lt=-
+
+
+
+
+
+display</panel_attributes><additional_attributes>120;10;120;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>338</x><y>52</y><w>338</w><h>65</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..n
-send message
-display message
-block message
-delete message</panel_attributes><additional_attributes>120;10;120;210;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>90</y><w>260</w><h>60</h></coordinates><panel_attributes>lt=-
+bann</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>182</x><y>156</y><w>195</w><h>416</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+
+
+
+
+
+
+
+
+
+respond </panel_attributes><additional_attributes>10;10;10;290;130;290</additional_attributes></element><element><id>Relation</id><coordinates><x>338</x><y>26</y><w>338</w><h>65</h></coordinates><panel_attributes>lt=-
 m1=0..n
 m2=0..n
-create channel
-bann user
-invite user</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element></diagram>
+create
+</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>338</x><y>78</y><w>338</w><h>65</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+invite</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>338</x><y>104</y><w>338</w><h>65</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+destory</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>Relation</id><coordinates><x>611</x><y>156</y><w>221</w><h>364</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+
+
+
+
+
+
+
+
+block</panel_attributes><additional_attributes>120;10;120;250;10;250</additional_attributes></element><element><id>Relation</id><coordinates><x>611</x><y>156</y><w>221</w><h>416</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=0..n
+
+
+
+
+
+
+
+
+
+
+delete</panel_attributes><additional_attributes>120;10;120;290;10;290</additional_attributes></element></diagram>
