@@ -27,12 +27,10 @@ import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
 
 .sideTemplate {
     width: 30%;
-    min-height: inherit;
 }
 
 .chatTemplate {
     width: 100%;
-    min-height: inherit;
 }
 
 </style>
