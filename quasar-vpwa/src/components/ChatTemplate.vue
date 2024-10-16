@@ -10,14 +10,10 @@
     <MessageTemplate />
     <MessageTemplate id="outgoing"></MessageTemplate>
   </div>
-  <div>
-    <CommandlineTemplate id="command-line"></CommandlineTemplate>
-  </div>
 </template>
 
 <script setup>
 import MessageTemplate from 'src/components/MessageTemplate.vue';
-import CommandlineTemplate from 'src/components/CommandlineTemplate.vue'
 </script>
 
 <style lang="scss" scoped>
