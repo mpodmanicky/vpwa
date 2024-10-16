@@ -6,9 +6,6 @@
             </div>
             <div class="chatTemplate">
                 <ChatTemplate />
-                <div class="commandline">
-                    <CommandlineTemplate />
-                </div>
             </div>
         </div>
     </q-page>
@@ -30,16 +27,12 @@ import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
 
 .sideTemplate {
     width: 30%;
+    min-height: inherit;
 }
 
 .chatTemplate {
     width: 100%;
-}
-
-.commandline {
-    background-color: rgb(81, 65, 102);
-    display: flex;
-    flex-direction: column;
+    min-height: inherit;
 }
 
 </style>

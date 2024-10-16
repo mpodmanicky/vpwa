@@ -1,19 +1,25 @@
 <template>
-  <div class="statusBar">
-    <p id="channel-name">:channelName</p>
-    <div class="statusOptions"></div>
-  </div>
-  <div class="messages">
-    <!--incoming messages will be displayed on the left side of the chat while outgoing on the right side-->
-    <!--div needs to be scrollable-->
-    <MessageTemplate />
-    <MessageTemplate />
-    <MessageTemplate id="outgoing"></MessageTemplate>
-  </div>
+    <div class="statusBar">
+      <q-bar>
+  
+      </q-bar>
+      <div class="statusOptions"></div>
+    </div>
+    <div class="messages">
+      <!--incoming messages will be displayed on the left side of the chat while outgoing on the right side-->
+      <!--div needs to be scrollable-->
+      <MessageTemplate />
+      <MessageTemplate />
+      <MessageTemplate id="outgoing"></MessageTemplate>
+    </div>
+    <div class="commandline"> 
+      <CommandlineTemplate />
+    </div>
 </template>
 
 <script setup>
 import MessageTemplate from 'src/components/MessageTemplate.vue';
+import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -26,5 +32,11 @@ import MessageTemplate from 'src/components/MessageTemplate.vue';
 #channel-name{
   padding: 5px;
   margin-left: 5px;
+}
+
+.commandline {
+  background-color: rgb(81, 65, 102);
+  display: flex;
+  flex-direction: column;
 }
 </style>

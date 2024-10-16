@@ -13,7 +13,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer>
+    <q-footer elevated>
       <div class="footer-text">
         <p>Lucas Espitia, Martin Podmanicky</p>
         <p>2024</p>

@@ -1,6 +1,6 @@
 <template>
     <div class="commandLine">
-        <p>Commandline Box</p>
+        <q-input standout v-model="text" label="CommandLine" />
     </div>
 </template>
 
