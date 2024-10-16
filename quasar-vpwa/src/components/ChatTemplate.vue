@@ -38,5 +38,8 @@ import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
   background-color: rgb(81, 65, 102);
   display: flex;
   flex-direction: column;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 </style>

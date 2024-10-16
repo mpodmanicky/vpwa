@@ -31,6 +31,7 @@ import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
 
 .chatTemplate {
     width: 100%;
+    position: relative;
 }
 
 </style>
