@@ -1,32 +1,35 @@
 <template>
-    <div>
+    <div class="sideBar">
         <div class="users">
-            users
+            <UserTemplate />
         </div>
         <div class="servers">
-            servers
+            <ChannelTemplate />
+            <ChannelTemplate />
+            <ChannelTemplate />
         </div>
     </div>
 </template>
 
-<script>
-
+<script setup>
+import ChannelTemplate from './ChannelTemplate.vue';
+import UserTemplate from './UserTemplate.vue';
 </script>
 
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 
-div{
+.sideBar{
     background-color: $secondary;
     display: flex;
     height: 100%;
 }
 .servers {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
     width: 100%;
+    box-shadow: 2px 0px 4px rgba(0,0,0,0.5);
 }
 .users {
+    box-shadow: 1px 0px 4px rgba(0,0,0,0.5);
     width: 30%;
 }
 </style>
