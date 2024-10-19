@@ -5,17 +5,28 @@
             <q-avatar rounded color="teal" text-color="white" icon="person"/>
             <div class="message">
                 <div class="userName">
-                    USERNAME
+                    {{ username }}
                 </div>
                 <div class="messageBody">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi dolorem ratione atque illo at quia. Quos, ea ipsum magnam odit distinctio deserunt fugit! Dolores repellendus suscipit sed neque ullam est?
+                    {{ message }}    
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
+
+const props = defineProps({
+    username: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
+    }
+})
 
 </script>
 

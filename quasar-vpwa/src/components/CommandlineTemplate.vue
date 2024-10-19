@@ -1,11 +1,21 @@
 <template>
     <div class="commandLine">
-        <q-input standout v-model="text" label="CommandLine" />
+        <q-input standout v-model="text" label="CommandLine" @keyup.enter='submitCommand' />
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+const text = ref('');
 
+const emit = defineEmits(['sendCommand']);
+// function to emit commands
+function submitCommand() {
+    if (text.value.trim()) {
+        emit('sendCommand', text.value);
+        text.value = '';
+    }
+}
 </script>
 
 <style lang="scss" scoped>

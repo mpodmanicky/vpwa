@@ -26,7 +26,7 @@
           <q-btn
             color="primary"
             :label="isLogIn ? 'Log In' : 'Register'"
-            @click="console.log('clicked...loggin in!')"
+            @click="handleLogin"
           />
           <h6 id="decision">or</h6>
           <q-btn
@@ -42,10 +42,17 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 import LogInTemplate from "src/components/LogInTemplate.vue";
 import RegisterTemplate from "src/components/RegisterTemplate.vue";
 
 const isLogIn = ref(true);
+const router = useRouter();
+
+function handleLogin({email,password}) {
+  console.log('Loggin in with....', email, password);
+  router.push('/slack');
+}
 
 defineOptions({
   name: "IndexPage",
