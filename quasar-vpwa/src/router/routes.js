@@ -6,16 +6,16 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '', component: () => import('pages/IndexPage.vue')  // Página de inicio
+        path: '', component: () => import('pages/IndexPage.vue')  
       },
       {
-        path: 'slack', component: () => import('pages/MainPage.vue')  // Página principal
+        path: 'slack', component: () => import('pages/MainPage.vue')  
       },
     ]
   },
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue')  // Página de error
+    component: () => import('pages/ErrorNotFound.vue')  
   }
 ]
 
