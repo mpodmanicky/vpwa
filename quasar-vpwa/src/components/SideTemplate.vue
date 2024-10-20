@@ -3,19 +3,21 @@
         <div class="users">
             <UserTemplate />
         </div>
-        <q-scroll-area class="servers">
-            <div class="channels"> 
-                <ChannelTemplate v-for="index in 20" :key="index" :channelNumber="index" />
-            </div>
-        </q-scroll-area>
+        <div class="servers">
+            <ChannelTemplate v-for="channel in channels" :key="channel" :channelName="channel"/>
+        </div>
     </div>
 </template>
-
 <script setup>
 import ChannelTemplate from './ChannelTemplate.vue';
 import UserTemplate from './UserTemplate.vue';
+const props = defineProps({
+    channels: {
+        type: Array,
+        Required: true
+    },
+})
 </script>
-
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 

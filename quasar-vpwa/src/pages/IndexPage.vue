@@ -27,7 +27,7 @@
           <q-btn
             color="primary"
             :label="isLogIn ? 'Log In' : 'Register'"
-            @click="handleAuthentication"  
+            @click="handleLogin"
           />
           <h6 id="decision">or</h6>
           <q-btn
@@ -42,34 +42,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
+import { useRouter } from 'vue-router';
 import LogInTemplate from "src/components/LogInTemplate.vue";
 import RegisterTemplate from "src/components/RegisterTemplate.vue";
 
 const isLogIn = ref(true);
-const loginTemplate = ref(null);
-const registerTemplate = ref(null); 
+const router = useRouter();
 
-const handleAuthentication = () => {
-  if (isLogIn.value) {
-    console.log("Logging in the user...");
-    const isLoginSuccessful = loginTemplate.value.validateLogin();
-
-    if (isLoginSuccessful) {
-      console.log("Login successful!");
-    } else {
-      console.log("Login failed!");
-    }
-  } 
-    else {
-    const isRegisterSuccessful = registerTemplate.value.validateRegister();
-    if(isRegisterSuccessful) {
-      console.log("Register successful!");
-    } else {
-      console.log("Register failed! Please fill in all fields.");
-    }
-  }
-};
+function handleLogin({email,password}) {
+  console.log('Loggin in with....', email, password);
+  router.push('/slack');
+}
 
 defineOptions({
   name: "IndexPage",

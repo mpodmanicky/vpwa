@@ -1,24 +1,6 @@
 <template>
     <div class="commandLine">
-      <div class="textarea-container">
-        <q-input 
-          v-model="text" 
-          label="Write a message" 
-          type="textarea"
-          rows="1" 
-          autogrow
-          filled 
-          class="scrolling-textarea"
-          :style="{ width: '100%' }" 
-        />
-      </div>
-      <q-btn 
-        @click="sendMessage" 
-        color="primary" 
-        class="send-button" 
-        round 
-        icon="send"
-      />
+        <q-input standout v-model="text" label="CommandLine" @keyup.enter='submitCommand' /
     </div>
   </template>
   
@@ -39,12 +21,23 @@
     }
     };
 
-  </script>
-  
-  <style lang="scss" scoped>
-  .commandLine {
-    display: flex;
-    align-items: center;
+<script setup>
+import { ref } from 'vue';
+const text = ref('');
+
+const emit = defineEmits(['sendCommand']);
+// function to emit commands
+function submitCommand() {
+    if (text.value.trim()) {
+        emit('sendCommand', text.value);
+        text.value = '';
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+
+.commandLine{
     background-color: white;
     border-radius: 10px;
     padding: 10px;

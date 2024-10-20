@@ -5,14 +5,19 @@
                 <q-avatar rounded color="orange" text-color="white" icon="headphones" />
             </div>
             <div class="channelName">
-                <p>:ChannelName</p>
+                <p>{{ channelName }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-
+const props = defineProps({
+    channelName: {
+        type: String,
+        Required: true,
+    }
+});
 </script>
 
 <style lang="scss" scoped>
