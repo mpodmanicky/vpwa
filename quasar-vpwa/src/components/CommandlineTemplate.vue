@@ -1,26 +1,8 @@
 <template>
     <div class="commandLine">
-        <q-input standout v-model="text" label="CommandLine" @keyup.enter='submitCommand' /
+        <q-input standout v-model="text" label="CommandLine" @keyup.enter='submitCommand' />
     </div>
   </template>
-  
-  <script setup>
-   import { ref } from 'vue';
-  
-   const text = ref('');
- 
-   const sendMessage = () => {
-     console.log(text.value); 
-     text.value = '';
-     resetInputSize();
-   };
-   const resetInputSize = () => {
-   const inputField = document.querySelector('.q-field__control');
-    if (inputField) {
-            inputField.style.height = 'auto'; 
-    }
-    };
-
 <script setup>
 import { ref } from 'vue';
 const text = ref('');
