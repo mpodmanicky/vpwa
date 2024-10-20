@@ -1,8 +1,7 @@
 <template>
-    <!--entire div will have margin, kinda like a container. I need avatar, name and message body-->
     <div class="chat">
         <div class="messageTemplate">
-            <q-avatar rounded color="teal" text-color="white" icon="person"/>
+            <q-avatar rounded color="teal" text-color="white" icon="person" />
             <div class="message">
                 <div class="userName">
                     {{ username }}
@@ -16,7 +15,6 @@
 </template>
 
 <script setup>
-
 const props = defineProps({
     username: {
         type: String,
@@ -27,7 +25,6 @@ const props = defineProps({
         required: true
     }
 })
-
 </script>
 
 <style lang="scss" scoped>
@@ -38,18 +35,27 @@ const props = defineProps({
 }
 
 .messageTemplate {
-    max-width: 600px;
+    max-width: 600px; /* Max width for each message container */
     display: flex;
     padding: 5px;
-    margin: 0 15px 15px 15px;
+    margin: 0 15px 15px 15px; /* Margin for spacing between messages */
     box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     border-radius: 10px;
-    // for better visualisation i added border to the message body
-    //border: 1px solid $primary;
+}
+
+.message {
+    display: flex;
+    flex-direction: column; /* Stack username and message body vertically */
+    max-width: calc(100% - 40px); /* Adjust for avatar width and padding */
+    overflow-wrap: break-word; /* Ensure long words break to the next line */
 }
 
 .messageBody {
     padding: 5px;
+    overflow-wrap: break-word; /* Allow long words to break */
+    word-wrap: break-word; /* Older support for browsers */
+    word-break: break-all; /* Break long words or URLs that don't fit */
+    white-space: pre-wrap; /* Maintain whitespace and wrap lines */
 }
 
 .userName {

@@ -1,6 +1,25 @@
 <template>
     <div class="commandLine">
-        <q-input standout v-model="text" label="CommandLine" @keyup.enter='submitCommand' />
+      <div class="textarea-container">
+        <q-input 
+            v-model="text" 
+            label="Write a message" 
+            type="textarea"
+            rows="1" 
+            autogrow
+            filled 
+            class="scrolling-textarea"
+            :style="{ width: '100%' }"
+            @keyup.enter.prevent="submitCommand"
+        />
+      </div>  
+        <q-btn 
+            @click="sendMessage" 
+            color="primary" 
+            class="send-button" 
+            round 
+            icon="send"
+         />
     </div>
   </template>
 <script setup>
@@ -19,40 +38,41 @@ function submitCommand() {
 
 <style lang="scss" scoped>
 
-.commandLine{
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
-  }
-  
-  .send-button {
-    margin: 0 15px 0px 15px;
-  }
-  
-  .textarea-container {
-    max-height: 200px;
-    width: 100%;
-    overflow-y: auto;
-  }
+.commandLine {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+.send-button {
+  margin: 0 15px 0px 15px;
+}
 
-  .scrolling-textarea .q-field__control {
-    max-height: 300px; 
-    overflow-y: auto;  
-  }
-  
-  .textarea-container::-webkit-scrollbar {
-    width: 8px; 
-  }
-  
-  .textarea-container::-webkit-scrollbar-thumb {
-    background-color: #20b955; 
-    border-radius: 10px; 
-  }
-  
-  .textarea-container::-webkit-scrollbar-track {
-    background-color: #e0e0e0;
-    border-radius: 10px; 
-  }
+.textarea-container {
+  max-height: 200px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.scrolling-textarea .q-field__control {
+  max-height: 300px; 
+  overflow-y: auto;  
+}
+
+.textarea-container::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.textarea-container::-webkit-scrollbar-thumb {
+  background-color: #20b955; 
+  border-radius: 10px; 
+}
+
+.textarea-container::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 10px; 
+}
   </style>
   

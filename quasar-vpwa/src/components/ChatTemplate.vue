@@ -1,5 +1,5 @@
 <template>
-podmo
+
   <div class="statusBar">
     <q-bar>
     </q-bar>

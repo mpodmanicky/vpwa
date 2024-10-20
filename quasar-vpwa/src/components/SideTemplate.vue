@@ -3,9 +3,11 @@
         <div class="users">
             <UserTemplate />
         </div>
-        <div class="servers">
-            <ChannelTemplate v-for="channel in channels" :key="channel" :channelName="channel"/>
-        </div>
+        <q-scroll-area class="servers">
+            <div class="channels"> 
+                <ChannelTemplate v-for="channel in channels" :key="channel" :channelName="channel"/>
+            </div>
+        </q-scroll-area>
     </div>
 </template>
 <script setup>
