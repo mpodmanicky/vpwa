@@ -1,25 +1,33 @@
-<!--Martin Podmanicky, 
-  Log-in and registration Page.
--->
+<!-- IndexPage.vue -->
 <template>
   <q-page>
     <div class="welcome-page">
       <div class="welcome-text">
         <h1>Slack Clone</h1>
-        <h3>Slack brings the <br> team together <br> wherever you are</h3>
-        <p>Web browser application developed by Martin Podmanicky,<br> Lucas Espitia.</p>
+        <h3>
+          Slack brings the <br />
+          team together <br />
+          wherever you are
+        </h3>
+        <p>
+          Web browser application developed by Martin Podmanicky,<br />
+          Lucas Espitia.
+        </p>
       </div>
 
       <div class="signup-container">
         <h4>Get chatting!</h4>
-        <LogInTemplate v-if="isLogIn" />
-        <RegisterTemplate v-else />
+
+        <!-- Using ref to reference LogInTemplate and access validateLogin -->
+        <LogInTemplate v-if="isLogIn" ref="loginTemplate" />
+        <RegisterTemplate v-else ref="registerTemplate" />  <!-- Add ref here -->
 
         <div class="control-buttons">
+          <!-- Log In or Register button -->
           <q-btn
             color="primary"
             :label="isLogIn ? 'Log In' : 'Register'"
-            @click="console.log('clicked...loggin in!')"
+            @click="handleAuthentication"  
           />
           <h6 id="decision">or</h6>
           <q-btn
@@ -35,33 +43,54 @@
 
 <script setup>
 import { ref } from 'vue';
-import LogInTemplate from 'src/components/LogInTemplate.vue';
-import RegisterTemplate from 'src/components/RegisterTemplate.vue';
+import LogInTemplate from "src/components/LogInTemplate.vue";
+import RegisterTemplate from "src/components/RegisterTemplate.vue";
 
 const isLogIn = ref(true);
+const loginTemplate = ref(null);
+const registerTemplate = ref(null); 
+
+const handleAuthentication = () => {
+  if (isLogIn.value) {
+    console.log("Logging in the user...");
+    const isLoginSuccessful = loginTemplate.value.validateLogin();
+
+    if (isLoginSuccessful) {
+      console.log("Login successful!");
+    } else {
+      console.log("Login failed!");
+    }
+  } 
+    else {
+    const isRegisterSuccessful = registerTemplate.value.validateRegister();
+    if(isRegisterSuccessful) {
+      console.log("Register successful!");
+    } else {
+      console.log("Register failed! Please fill in all fields.");
+    }
+  }
+};
 
 defineOptions({
-  name: 'IndexPage'
+  name: "IndexPage",
 });
 </script>
 
 <style lang="scss" scoped>
-@import 'src/css/quasar.variables.scss';
+@import "src/css/quasar.variables.scss";
 
 .welcome-page {
-  // @media screen and (max-width: 600px) {
-  //   height: 100%;
-  // }
+  min-height: inherit;
   background-color: $secondary;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   color: white;
 }
 
 .welcome-text {
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .input-field {
@@ -69,13 +98,12 @@ defineOptions({
   color: white;
 }
 
-h1, h3, p {
-  // @media screen and (max-width: 600px) {
-  //   margin: 15px 15%;  
-  // }
+h1,
+h3,
+p {
   margin: 15px 150px;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 900;
 }
 
@@ -84,16 +112,15 @@ p {
 }
 
 .signup-container {
-  // @media (min-width: 768px) {
-  //   margin: 15px 15px;
-  // }
-  margin: 15px 150px;}
+  margin: 15px 150px;
+}
 
 .control-buttons {
   display: flex;
   justify-content: space-evenly;
   margin-top: 15px;
 }
+
 #decision {
   margin: 0;
 }

@@ -1,9 +1,0 @@
-<template>
-    <q-card>
-        <q-card-section>
-            <q-card-title>
-                 message 
-            </q-card-title>
-        </q-card-section>
-    </q-card>
-</template>
