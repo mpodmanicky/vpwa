@@ -1,6 +1,4 @@
-<!--Martin Podmanicky, 
-  Log-in and registration Page.
--->
+<!-- IndexPage.vue -->
 <template>
   <q-page>
     <div class="welcome-page">
@@ -19,10 +17,13 @@
 
       <div class="signup-container">
         <h4>Get chatting!</h4>
-        <LogInTemplate v-if="isLogIn" />
-        <RegisterTemplate v-else />
+
+        <!-- Using ref to reference LogInTemplate and access validateLogin -->
+        <LogInTemplate v-if="isLogIn" ref="loginTemplate" />
+        <RegisterTemplate v-else ref="registerTemplate" />  <!-- Add ref here -->
 
         <div class="control-buttons">
+          <!-- Log In or Register button -->
           <q-btn
             color="primary"
             :label="isLogIn ? 'Log In' : 'Register'"
@@ -84,9 +85,6 @@ defineOptions({
 h1,
 h3,
 p {
-  // @media screen and (max-width: 600px) {
-  //   margin: 15px 15%;
-  // }
   margin: 15px 150px;
   padding: 0;
   font-family: "Roboto", sans-serif;
@@ -98,9 +96,6 @@ p {
 }
 
 .signup-container {
-  // @media (min-width: 768px) {
-  //   margin: 15px 15px;
-  // }
   margin: 15px 150px;
 }
 
@@ -109,6 +104,7 @@ p {
   justify-content: space-evenly;
   margin-top: 15px;
 }
+
 #decision {
   margin: 0;
 }

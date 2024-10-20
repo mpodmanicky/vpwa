@@ -21,17 +21,22 @@ const props = defineProps({
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 
-.sideBar{
+.sideBar {
     background-color: $secondary;
     display: flex;
     height: 100%;
 }
+
+.users {
+    box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.5);
+    width: 30%;
+}
+
 .servers {
     width: 100%;
-    box-shadow: 2px 0px 4px rgba(0,0,0,0.5);
 }
-.users {
-    box-shadow: 1px 0px 4px rgba(0,0,0,0.5);
-    width: 30%;
+
+.channels {
+    padding: 10px; 
 }
 </style>

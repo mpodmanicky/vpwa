@@ -16,29 +16,10 @@
     <q-footer elevated>
       <div class="footer-text">
         <p>Lucas Espitia, Martin Podmanicky</p>
-        <p>2024</p>
+        <p>2024 &copy;</p>
         <p>FIIT, STU in Bratislava</p>
       </div>
     </q-footer>
-
-    <!-- <q-footer class="text-white q-pa-xs footer">
-      <div class="text-center footer-content">
-        <div class="authors">
-          <p>Lucas Espitia and Martin Podmanicky</p>
-        </div>
-        <div class="contact">
-          <p>
-            <a href="mailto:xespitiacorredo@stuba.sk" class="email-link">xespitiacorredo@stuba.sk</a>
-          </p>
-          <p>
-            <a href="mailto:xpodmanickym@stuba.sk" class="email-link">xpodmanickym@stuba.sk</a>
-          </p>
-        </div>
-        <div class="copyright">
-          <p>&copy; 2024 <strong>FIIT</strong></p>
-        </div>
-      </div>
-    </q-footer> -->
   </q-layout>
 </template>
 
