@@ -1,7 +1,6 @@
 <template>
   <div class="statusBar">
     <q-bar>
-
     </q-bar>
     <div class="statusOptions"></div>
   </div>
@@ -19,32 +18,27 @@
     <CommandlineTemplate @sendCommand="handleCommand" />
   </div>
 </template>
-
 <script setup>
 import { ref, nextTick } from 'vue';
 import MessageTemplate from 'src/components/MessageTemplate.vue';
 import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
-
 const messages = ref([]); // Holds the messages to display
 const allMessages = ref([ /* Full array of messages loaded from server */]); // This would be your server-side or full data
 const perPage = 5; // Number of messages to load per scroll
 const newestMessage = ref(null); // Reference for the newest message div
-
+const emit = defineEmits(['command']);
 // Loads more messages when scrolling up
 function onLoad() {
   const currentLength = messages.value.length;
-
   // Check if there are more messages to load
   if (currentLength < allMessages.value.length) {
     // Append more messages from allMessages array
     const moreMessages = allMessages.value.slice(currentLength, currentLength + perPage);
     messages.value.unshift(...moreMessages);
   }
-
   // Call done to tell Quasar infinite scroll component to stop loading
   // done();
 };
-
 // Scrolls to the newest message after adding a new one
 function scrollToNewestMessage() {
   nextTick(() => {
@@ -53,17 +47,26 @@ function scrollToNewestMessage() {
     }
   });
 };
-
 function handleCommand(command) {
-  messages.value.push({ username: 'User', text: command })
-  allMessages.value.push({ username: 'User', text: command });
+  const [mainCommand, ...args] = command.split(' ');
+  switch (mainCommand) {
+    case '/create':
+      const channelName = args[0];
+      if (channelName) {
+        // Emit the command to the parent for creating a channel
+        emit('command', { type: 'create', channelName });
+      } else {
+        console.log('Error: Channel name is required...');
+      } break;
+
+    default:
+      messages.value.push({ username: 'User', text: command })
+      allMessages.value.push({ username: 'User', text: command });
+  }
 }
-
 </script>
-
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
-
 .statusBar {
   background-color: rgb(81, 65, 102);
   color: white;
@@ -72,7 +75,6 @@ function handleCommand(command) {
   padding: 5px;
   margin-left: 5px;
 }
-
 .messages {
   height: calc(100vh - 250px);
   overflow-y: auto;
@@ -80,7 +82,6 @@ function handleCommand(command) {
   flex-direction: column-reverse;
   flex-grow: 1;
 }
-
 .commandline {
   background-color: rgb(81, 65, 102);
   display: flex;

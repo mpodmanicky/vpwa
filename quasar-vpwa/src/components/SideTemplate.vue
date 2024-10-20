@@ -4,18 +4,20 @@
             <UserTemplate />
         </div>
         <div class="servers">
-            <ChannelTemplate />
-            <ChannelTemplate />
-            <ChannelTemplate />
+            <ChannelTemplate v-for="channel in channels" :key="channel" :channelName="channel"/>
         </div>
     </div>
 </template>
-
 <script setup>
 import ChannelTemplate from './ChannelTemplate.vue';
 import UserTemplate from './UserTemplate.vue';
+const props = defineProps({
+    channels: {
+        type: Array,
+        Required: true
+    },
+})
 </script>
-
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 
