@@ -16,9 +16,16 @@ import SideTemplate from 'src/components/SideTemplate.vue';
 import ChatTemplate from 'src/components/ChatTemplate.vue';
 const channels = ref(['General']);//initial channel holding info about use
 function handleCommand(command) {//function to handle commands
-  if (command.type === 'create') {
-    create_channel(command.channelName);
-  }
+    switch (command.type) {
+        case 'create':
+            create_channel(command.channelName);
+            break;
+        case 'delete':
+            delete_channel(command.channelName);
+            break;
+        default:
+            console.log('Unknown command....');
+    }
 };
 function create_channel(channelName) {//function to create channels
     if (!channels.value.includes(channelName)) {
@@ -27,6 +34,14 @@ function create_channel(channelName) {//function to create channels
   } else {
     console.log(`Channel '${channelName}' already exists.`);
   }
+};
+function delete_channel(channelName) {
+    if (channels.value.includes(channelName)) {
+        channels.value = channels.value.filter(channel => channel !== channelName);
+        console.log(`Channel '${channelName}' deleted.`);
+    } else {
+        console.log(`Channel '${channelName}' does not exist.`);
+    }
 };
 </script>
 <style lang="scss" scoped>

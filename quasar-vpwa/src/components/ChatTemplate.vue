@@ -49,16 +49,23 @@ function scrollToNewestMessage() {
 };
 function handleCommand(command) {
   const [mainCommand, ...args] = command.split(' ');
+  const channelName = args[0];
   switch (mainCommand) {
     case '/create':
-      const channelName = args[0];
       if (channelName) {
         // Emit the command to the parent for creating a channel
         emit('command', { type: 'create', channelName });
       } else {
         console.log('Error: Channel name is required...');
       } break;
-
+    case '/delete':
+      if (channelName) {
+        if (channelName !== 'General') {
+          emit('command', { type: 'delete', channelName });
+        } else {
+          console.log('General channel cannot be deleted....');
+        }
+      } break;
     default:
       messages.value.push({ username: 'User', text: command })
       allMessages.value.push({ username: 'User', text: command });
