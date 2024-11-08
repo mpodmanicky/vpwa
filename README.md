@@ -1,5 +1,6 @@
 # vpwa
 Repository for group semestral project. Course Development of Progressive Web Applications (VPWA).
+The backend for our app [Slack Clone](https://github.com/mpodmanicky/vpwa-backend)
 
 ---
 ## Tasks
