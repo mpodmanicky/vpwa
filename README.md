@@ -3,12 +3,6 @@ Repository for group semestral project. Course Development of Progressive Web Ap
 The backend for our app [Slack Clone](https://github.com/mpodmanicky/vpwa-backend)
 
 ---
-## Tasks
-[x] design the web
-[x] implement the designs
-[x] log in and registration switching
-[] create DB model
-[] setup backend in node/Adonis
 ## Requirements
 # -> Users
 1. User login, register and logout
@@ -44,7 +38,30 @@ Admin can restore an user using "/invite nickname".
 3. The user can set to receive notifications only for "DM" or muted Notification.
 4. If the offline mode is set, no notifications are received.
 ---
-# Notes
+### Desgin
+The design of the page can be found inside `vpwa/VPWA - Slack Clone`. It contains the .png files from figma based off of Slack.
+Simple yet beautiful desing which we then implement with Quasar and VueJS
 
+### Technology
+Throughout the project we used Quasar and VueJS. Essentialy we built the frontend of our application and it's logic.
+For *backend* please see top of the README.
 
-This is your place to leave any notes you have about the project.
+### Project Structure
+Quasar project structure is quite simple.
+```
+quasar-vpwa/
+    |_public/
+    |_src/
+        -...
+        -components/
+        -css/
+        -layouts/
+        -pages/
+        -router/
+        -store/
+        -App.vue
+    ...
+```
+Essential for us are the folders listed. We use one layout for the entire project to keep an organized looking page.
+Inside *pages* we store **.vue** files of pages rendered out inside the layout consiting of **.vue** components stored inside *components*.
+

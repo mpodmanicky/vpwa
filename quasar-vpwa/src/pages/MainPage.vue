@@ -9,18 +9,21 @@
             </div>
         </div>
     </q-page>
-</template>    
+</template>
 <script setup>
 import { ref } from 'vue';
 import SideTemplate from 'src/components/SideTemplate.vue';
 import ChatTemplate from 'src/components/ChatTemplate.vue';
+var channelName = ''; //variable for channel name to be able to load from db
 const channels = ref(['General']);//initial channel holding info about use
 function handleCommand(command) {//function to handle commands
     switch (command.type) {
         case 'create':
+            channelName = command.channelName;
             create_channel(command.channelName);
             break;
         case 'delete':
+            channelName = command.channelName;
             delete_channel(command.channelName);
             break;
         default:
