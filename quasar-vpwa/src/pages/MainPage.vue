@@ -18,8 +18,12 @@
 
 <script setup>
     import { ref } from 'vue';
+    import { useChannelStore } from 'src/store/channels';
     import SideTemplate from 'src/components/SideTemplate.vue';
     import ChatTemplate from 'src/components/ChatTemplate.vue';
+   
+    //Store of
+    const channelStore = useChannelStore();
 
     var channelName = ''; //variable for channel name to be able to load from db
 
