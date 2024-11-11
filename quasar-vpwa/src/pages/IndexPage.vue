@@ -19,8 +19,9 @@
         <h4>Get chatting!</h4>
 
         <!-- Using ref to reference LogInTemplate and access validateLogin -->
-        <LogInTemplate v-if="isLogIn" ref="loginTemplate" />
-        <RegisterTemplate v-else ref="registerTemplate" />  <!-- Add ref here -->
+        <LogInTemplate v-if="isLogIn" ref="loginTemplate" @login="loginUser" />
+        <RegisterTemplate v-else ref="registerTemplate" />
+        <!-- Add ref here -->
 
         <div class="control-buttons">
           <!-- Log In or Register button -->
@@ -43,18 +44,56 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from 'vue-router';
+import axios from "axios";
+import { useRouter } from "vue-router";
 import LogInTemplate from "src/components/LogInTemplate.vue";
 import RegisterTemplate from "src/components/RegisterTemplate.vue";
-
 const isLogIn = ref(true);
 const router = useRouter();
 
-function handleLogin({email,password}) {
-  console.log('Loggin in with....', email, password);
-  router.push('/slack');
+function handleLogin({ email, password }) {
+  console.log("Loggin in with....", email, password);
+  router.push("/slack");
 }
-
+async function registerUser() {
+  // create a way to handle text from input i need to emit them
+  var user = {
+    name:,
+    email:,
+    password:,
+    re_password:,
+  };
+  // we'll be using fetch
+  fetch("http://localhost:3333/register", {
+    method: POST,
+    "Content-type": "application/json",
+    body: JSON.stringify(user),
+  })
+  .then(response = response.json())
+    .then(data => {
+      console.log(data)})
+    .catch(error => {
+      console.log(error)});
+};
+async function loginUser() {
+  var user = {
+    email:,
+    password:,
+  };
+  fetch("http://localhost:3333/login", {
+    method: POST,
+    "Content-type": "application/json",
+    body: JSON.stringify(user),
+  })
+    .then(response => response.json())
+    .then(data => {
+      //after successful login we prompt the user to mainpage saving user state and loading all the shit
+      //channels
+      //user
+      console.log(data)})
+    .catch(error => {
+      console.log(error)});
+};
 defineOptions({
   name: "IndexPage",
 });
