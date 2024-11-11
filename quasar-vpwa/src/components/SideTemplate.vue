@@ -5,7 +5,12 @@
         </div>
         <q-scroll-area class="servers">
             <div class="channels"> 
-                <ChannelTemplate v-for="channel in channels" :key="channel" :channelName="channel"/>
+                <ChannelTemplate 
+                v-for="channel in channels" 
+                :key="channel" 
+                :channelName="channel"
+                @channelSelected="selectChannel"
+                />
             </div>
         </q-scroll-area>
     </div>
@@ -13,12 +18,18 @@
 <script setup>
 import ChannelTemplate from './ChannelTemplate.vue';
 import UserTemplate from './UserTemplate.vue';
+
 const props = defineProps({
-    channels: {
-        type: Array,
-        Required: true
-    },
+  channels: {
+    type: Array,
+    required: true
+  }
 })
+const emit = defineEmits(['channelSelected']);
+
+function selectChannel(channelName) {
+  emit('channelSelected', channelName);
+}
 </script>
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";

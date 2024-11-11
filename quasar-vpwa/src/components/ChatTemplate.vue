@@ -2,44 +2,73 @@
 
   <div class="statusBar">
     <q-bar>
+      <div>
+          {{ currentChannel }}
+      </div>
+
     </q-bar>
     <div class="statusOptions"></div>
   </div>
   <div class="messages">
-  <q-infinite-scroll @load="onLoad" reverse>
-    <p v-if="messages.length === 0">No messages yet.</p>
-      <MessageTemplate v-for="(msg, index) in messages" :key="index" :username="msg.username" :message="msg.text" />
+    <q-infinite-scroll @load="onLoad" reverse>
+      <p v-if="messages.length === 0">No messages yet.</p>
+      <MessageTemplate 
+        v-for="(msg, index) in messages" 
+        :key="index" 
+        :username="msg.username" 
+        :message="msg.text" 
+      />
       <!-- Dummy div used for scrolling to the newest message -->
       <div ref="newestMessage"></div>
     </q-infinite-scroll>
   </div>
     <!--incoming messages will be displayed on the left side of the chat while outgoing on the right side-->
-    <!--div needs to be scrollable-->
   <div class="commandline">
-    <CommandlineTemplate @sendCommand="handleCommand" />
+    <CommandlineTemplate 
+    :currentChannel="currentChannel" 
+    @sendCommand="handleCommand" />
   </div>
 </template>
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref, nextTick, computed } from 'vue';
 import MessageTemplate from 'src/components/MessageTemplate.vue';
 import CommandlineTemplate from 'src/components/CommandlineTemplate.vue';
-const messages = ref([]); // Holds the messages to display
-const allMessages = ref([ /* Full array of messages loaded from server */]); // This would be your server-side or full data
+
 const perPage = 5; // Number of messages to load per scroll
 const newestMessage = ref(null); // Reference for the newest message div
+const props = defineProps({
+  currentChannel: {
+    type: String,
+    required: true
+  }
+});
+
 const emit = defineEmits(['command']);
+
+// Create a ref to store the messages for each channel
+const channelMessages = ref({
+  // Default channel 'General', it will be dynamically extended with other channels
+  'General': []
+});
+
+// Get the messages for the current channel dynamically using computed property
+const messages = computed(() => {
+  return channelMessages.value[props.currentChannel] || [];
+});
+
 // Loads more messages when scrolling up
 function onLoad() {
   const currentLength = messages.value.length;
-  // Check if there are more messages to load
-  if (currentLength < allMessages.value.length) {
-    // Append more messages from allMessages array
-    const moreMessages = allMessages.value.slice(currentLength, currentLength + perPage);
-    messages.value.unshift(...moreMessages);
+  // Check if there are more messages to load for the current channel
+  if (currentLength < channelMessages.value[props.currentChannel]?.length) {
+    // Get the next set of messages
+    const moreMessages = channelMessages.value[props.currentChannel].slice(currentLength, currentLength + perPage);
+    messages.value.unshift(...moreMessages); // Add them to the current messages
   }
   // Call done to tell Quasar infinite scroll component to stop loading
   // done();
-};
+}
+
 // Scrolls to the newest message after adding a new one
 function scrollToNewestMessage() {
   nextTick(() => {
@@ -47,18 +76,24 @@ function scrollToNewestMessage() {
       newestMessage.value.scrollIntoView({ behavior: 'smooth' });
     }
   });
-};
+}
+
 function handleCommand(command) {
   const [mainCommand, ...args] = command.split(' ');
   const channelName = args[0];
+  
   switch (mainCommand) {
     case '/create':
       if (channelName) {
         // Emit the command to the parent for creating a channel
         emit('command', { type: 'create', channelName });
+        // Initialize the new channel messages
+        channelMessages.value[channelName] = [];
       } else {
         console.log('Error: Channel name is required...');
-      } break;
+      }
+      break;
+
     case '/delete':
       if (channelName) {
         if (channelName !== 'General') {
@@ -66,13 +101,20 @@ function handleCommand(command) {
         } else {
           console.log('General channel cannot be deleted....');
         }
-      } break;
+      }
+      break;
+
     default:
-      messages.value.push({ username: 'User', text: command })
-      allMessages.value.push({ username: 'User', text: command });
+      // Add the message to the current channel's message array
+      if (!channelMessages.value[props.currentChannel]) {
+        channelMessages.value[props.currentChannel] = [];
+      }
+      channelMessages.value[props.currentChannel].push({ username: 'User', text: command });
+
   }
 }
 </script>
+
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 .statusBar {

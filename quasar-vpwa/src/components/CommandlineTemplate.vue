@@ -11,22 +11,33 @@
             class="scrolling-textarea"
             :style="{ width: '100%' }"
             @keyup.enter.prevent="submitCommand"
+            :disable="!currentChannel || currentChannel === ''"
         />
       </div>  
         <q-btn 
-            @click="sendMessage" 
+            @click="submitCommand" 
             color="primary" 
             class="send-button" 
             round 
             icon="send"
+            :disable="!currentChannel || currentChannel === ''"
          />
     </div>
   </template>
 <script setup>
 import { ref } from 'vue';
-const text = ref('');
 
+const props = defineProps({
+  currentChannel: {
+    type: String,
+    required: false 
+  }
+});
+
+const text = ref('');
 const emit = defineEmits(['sendCommand']);
+
+
 // function to emit commands
 function submitCommand() {
     if (text.value.trim()) {

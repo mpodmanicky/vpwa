@@ -1,5 +1,5 @@
 <template>
-    <div class="channel">
+    <div class="channel" @click="selectChannel">
         <div class="channelTemplate">
             <div class="channelLogo">
                 <q-avatar rounded color="orange" text-color="white" icon="headphones" />
@@ -12,12 +12,20 @@
 </template>
 
 <script setup>
+import { defineProps, defineEmits } from 'vue';
+
 const props = defineProps({
     channelName: {
         type: String,
         Required: true,
     }
+ 
 });
+const emit = defineEmits(['channelSelected']);
+
+function selectChannel() {
+    emit('channelSelected', props.channelName);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -31,6 +39,9 @@ const props = defineProps({
     display: flex;
     align-items: center;
     color: white;
+}
+.channel{
+    cursor: pointer;
 }
 .channelName {
     margin-left: 5px;
