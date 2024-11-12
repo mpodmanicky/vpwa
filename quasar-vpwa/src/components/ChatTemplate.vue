@@ -118,7 +118,7 @@ function handleCommand(command) {
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 .statusBar {
-  background-color: rgb(81, 65, 102);
+  background-color:rgb(60, 83, 86);
   color: white;
 }
 #channel-name{
