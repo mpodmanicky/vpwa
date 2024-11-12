@@ -54,17 +54,18 @@ async function registerUser() {
   // create a way to handle text from input i need to emit them
   var user = {
     name: "test",
+    username: "testarosa",
     email: "test123@gmail.com",
     password: "secret123",
-    re_password: "secret123",
+    repassword: "secret123",
   };
   // we'll be using fetch
-  fetch("http://localhost:3333/register", {
+  fetch("http://localhost:3333/registerUser", {
     method: POST,
     "Content-type": "application/json",
     body: JSON.stringify(user),
   })
-  .then(response = response.json())
+    .then(response => response.json())
     .then(data => {
       console.log(data)})
     .catch(error => {
@@ -75,7 +76,7 @@ async function loginUser() {
     email: "test123@gmail.com",
     password:"secret123",
   };
-  fetch("http://localhost:3333/login", {
+  fetch("http://localhost:3333/loginUser", {
     method: POST,
     "Content-type": "application/json",
     body: JSON.stringify(user),
