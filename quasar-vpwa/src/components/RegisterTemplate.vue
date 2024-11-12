@@ -37,6 +37,14 @@
       label="Password"
       style="margin: 15px 0"
     >
+      <template v-slot:append>
+        <q-icon
+          :name="isPwd ? 'visibility_off' : 'visibility'"
+          class="cursor-pointer"
+          @click="isPwd = !isPwd"
+        />
+      </template>
+    </q-input>
     <q-input
       v-model="repassword"
       standout
@@ -54,6 +62,7 @@
         />
       </template>
     </q-input>
+
     <q-banner
       v-if="errorMessage"
       :style="{ backgroundColor: 'var(--q-primary)', color: 'red' }"
@@ -78,7 +87,13 @@ const errorMessage = ref(null);
 
 function emitCredentials() {
   //finish the rest of the function to emit this shit
-  this.$emit('register', {name: this.name, username: this.username, email: this.email, password: this.password, repassword: this.repassword})
+  this.$emit("register", {
+    name: this.name,
+    username: this.username,
+    email: this.email,
+    password: this.password,
+    repassword: this.repassword,
+  });
 }
 
 /* const validateRegister = () => {
