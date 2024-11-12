@@ -84,15 +84,16 @@ const password = ref("");
 const repassword = ref("");
 const isPwd = ref(true);
 const errorMessage = ref(null);
+const emit = defineEmits(['register']);
 
 function emitCredentials() {
   //finish the rest of the function to emit this shit
-  this.$emit("register", {
-    name: this.name,
-    username: this.username,
-    email: this.email,
-    password: this.password,
-    repassword: this.repassword,
+  emit("register", {
+    name: name,
+    username: username,
+    email: email,
+    password: password,
+    repassword: repassword,
   });
 }
 

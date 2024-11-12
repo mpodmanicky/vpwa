@@ -19,8 +19,16 @@
         <h4>Get chatting!</h4>
 
         <!-- Using ref to reference LogInTemplate and access validateLogin -->
-        <LogInTemplate v-if="isLogIn" ref="loginTemplate" @login="handleLogin" />
-        <RegisterTemplate v-else ref="registerTemplate" @register="handleRegister" />
+        <LogInTemplate
+          v-if="isLogIn"
+          ref="loginTemplate"
+          @login="handleLogin"
+        />
+        <RegisterTemplate
+          v-else
+          ref="registerTemplate"
+          @register="handleRegister"
+        />
         <!-- Add ref here -->
 
         <div class="control-buttons">
@@ -47,58 +55,69 @@ const isLogIn = ref(true);
 const router = useRouter();
 
 function handleLogin(credentials) {
-  if(credentials.email !== "" && credentials.password !== "") {
-    console.log(credentials)
-    loginUser(credentials.email, credentials.password)
+  if (credentials.email.value !== "" && credentials.password.value !== "") {
+    console.log(credentials);
+    loginUser(credentials.email.value, credentials.password.value);
   }
 }
 
 function handleRegister(credentials) {
-  if(credentials.name !== "" && credentials.username !== "" && credentials.email !== "" && credentials.password !== "" && credentials.repassword !== "") {
-      registerUser(credentials)
+  if (
+    credentials.name.value !== "" &&
+    credentials.username.value !== "" &&
+    credentials.email.value !== "" &&
+    credentials.password.value !== "" &&
+    credentials.repassword.value !== ""
+  ) {
+    registerUser(credentials);
   }
 }
 
 async function registerUser(credentials) {
   // create a way to handle text from input i need to emit them
   var user = {
-    name: credentials.name,
-    username: credentials.username,
-    email: credentials.email,
-    password: credentials.password,
-    repassword: credentials.repassword,
+    name: credentials.name.value,
+    username: credentials.username.value,
+    email: credentials.email.value,
+    password: credentials.password.value,
+    repassword: credentials.repassword.value,
   };
+  console.log(user);
   // we'll be using fetch
   fetch("http://localhost:3333/registerUser", {
-    method: POST,
+    method: "POST",
     "Content-type": "application/json",
     body: JSON.stringify(user),
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)})
-    .catch(error => {
-      console.log(error)});
-};
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 async function loginUser(inputEmail, inputPassword) {
   var user = {
     email: inputEmail,
     password: inputPassword,
   };
   fetch("http://localhost:3333/loginUser", {
-    method: POST,
+    method: "POST",
     "Content-type": "application/json",
     body: JSON.stringify(user),
   })
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       //after successful login we prompt the user to mainpage saving user state and loading all the shit
       //channels
       //user
-      console.log(data)})
-    .catch(error => {
-      console.log(error)});
-};
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 defineOptions({
   name: "IndexPage",
 });
