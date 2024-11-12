@@ -20,16 +20,12 @@
 
         <!-- Using ref to reference LogInTemplate and access validateLogin -->
         <LogInTemplate v-if="isLogIn" ref="loginTemplate" @login="loginUser" />
-        <RegisterTemplate v-else ref="registerTemplate" />
+        <RegisterTemplate v-else ref="registerTemplate" @register="registerUser" />
         <!-- Add ref here -->
 
         <div class="control-buttons">
           <!-- Log In or Register button -->
-          <q-btn
-            color="primary"
-            :label="isLogIn ? 'Log In' : 'Register'"
-            @click="handleLogin"
-          />
+          <!---->
           <h6 id="decision">or</h6>
           <q-btn
             color="primary"
@@ -44,7 +40,6 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
 import LogInTemplate from "src/components/LogInTemplate.vue";
 import RegisterTemplate from "src/components/RegisterTemplate.vue";
@@ -58,10 +53,10 @@ function handleLogin({ email, password }) {
 async function registerUser() {
   // create a way to handle text from input i need to emit them
   var user = {
-    name:,
-    email:,
-    password:,
-    re_password:,
+    name: "test",
+    email: "test123@gmail.com",
+    password: "secret123",
+    re_password: "secret123",
   };
   // we'll be using fetch
   fetch("http://localhost:3333/register", {
@@ -77,8 +72,8 @@ async function registerUser() {
 };
 async function loginUser() {
   var user = {
-    email:,
-    password:,
+    email: "test123@gmail.com",
+    password:"secret123",
   };
   fetch("http://localhost:3333/login", {
     method: POST,
