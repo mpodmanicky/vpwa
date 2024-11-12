@@ -19,8 +19,8 @@
         <h4>Get chatting!</h4>
 
         <!-- Using ref to reference LogInTemplate and access validateLogin -->
-        <LogInTemplate v-if="isLogIn" ref="loginTemplate" @login="loginUser" />
-        <RegisterTemplate v-else ref="registerTemplate" @register="registerUser" />
+        <LogInTemplate v-if="isLogIn" ref="loginTemplate" @login="handleLogin" />
+        <RegisterTemplate v-else ref="registerTemplate" @register="handleRegister" />
         <!-- Add ref here -->
 
         <div class="control-buttons">
@@ -46,18 +46,27 @@ import RegisterTemplate from "src/components/RegisterTemplate.vue";
 const isLogIn = ref(true);
 const router = useRouter();
 
-function handleLogin({ email, password }) {
-  console.log("Loggin in with....", email, password);
-  router.push("/slack");
+function handleLogin(credentials) {
+  if(credentials.email !== "" && credentials.password !== "") {
+    console.log(credentials)
+    loginUser(credentials.email, credentials.password)
+  }
 }
-async function registerUser() {
+
+function handleRegister(credentials) {
+  if(credentials.name !== "" && credentials.username !== "" && credentials.email !== "" && credentials.password !== "" && credentials.repassword !== "") {
+      registerUser(credentials)
+  }
+}
+
+async function registerUser(credentials) {
   // create a way to handle text from input i need to emit them
   var user = {
-    name: "test",
-    username: "testarosa",
-    email: "test123@gmail.com",
-    password: "secret123",
-    repassword: "secret123",
+    name: credentials.name,
+    username: credentials.username,
+    email: credentials.email,
+    password: credentials.password,
+    repassword: credentials.repassword,
   };
   // we'll be using fetch
   fetch("http://localhost:3333/registerUser", {
@@ -71,10 +80,10 @@ async function registerUser() {
     .catch(error => {
       console.log(error)});
 };
-async function loginUser() {
+async function loginUser(inputEmail, inputPassword) {
   var user = {
-    email: "test123@gmail.com",
-    password:"secret123",
+    email: inputEmail,
+    password: inputPassword,
   };
   fetch("http://localhost:3333/loginUser", {
     method: POST,

@@ -35,7 +35,7 @@
   <q-btn
     color="primary"
     label="Log In"
-    @click="handleLogin"
+    @click="emitCredentials"
   />
 </template>
 
@@ -44,12 +44,8 @@ import { ref } from "vue";
 const isPwd = ref(true);
 const password = ref("");
 const email = ref("");
-const emit = defineEmits(["login"]);
 
-function handleLogin() {
-  if (email.value && password.value) {
-    console.log(email.value, password.value);
-    emit("login", { email: email.value, password: password.value });
-  }
+function emitCredentials() {
+  this.$emit('login', {email: this.email, pasword: this.password});
 }
 </script>
