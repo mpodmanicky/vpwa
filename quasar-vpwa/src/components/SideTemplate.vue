@@ -4,20 +4,28 @@
             <UserTemplate />
         </div>
         <q-scroll-area class="servers">
-            <div class="channels"> 
-                <ChannelTemplate 
-                v-for="channel in channels" 
-                :key="channel" 
-                :channelName="channel"
-                @channelSelected="selectChannel"
-                />
-            </div>
+        <!--
+            Button to add a Channel
+         -->
+        <AddChannelTemplate
+             @addChannel="addChannel" 
+        />
+        <div class="channels"> 
+            <ChannelTemplate 
+            v-for="channel in channels" 
+            :key="channel" 
+            :channelName="channel"
+            @channelSelected="selectChannel"
+        />
+        </div>
         </q-scroll-area>
     </div>
 </template>
 <script setup>
 import ChannelTemplate from './ChannelTemplate.vue';
 import UserTemplate from './UserTemplate.vue';
+import AddChannelTemplate from './AddChanelTemplate.vue';
+
 
 const props = defineProps({
   channels: {
@@ -25,12 +33,19 @@ const props = defineProps({
     required: true
   }
 })
-const emit = defineEmits(['channelSelected']);
+const emit = defineEmits(['channelSelected', 'addChannel']);
+
+//Just emiting the functions to the father.
+function addChannel(channelData) {
+  console.log("Channel Name en el padre:", channelData.channelName);
+  emit('addChannel', channelData);
+}
 
 function selectChannel(channelName) {
   emit('channelSelected', channelName);
 }
 </script>
+
 <style lang="scss" scoped>
 @import "src/css/quasar.variables.scss";
 
@@ -50,6 +65,6 @@ function selectChannel(channelName) {
 }
 
 .channels {
-    padding: 10px; 
+    padding: 2px 5px 0 5px; 
 }
 </style>
