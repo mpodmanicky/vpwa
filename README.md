@@ -65,3 +65,4 @@ quasar-vpwa/
 Essential for us are the folders listed. We use one layout for the entire project to keep an organized looking page.
 Inside *pages* we store **.vue** files of pages rendered out inside the layout consiting of **.vue** components stored inside *components*.
 
+
