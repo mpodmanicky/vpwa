@@ -41,9 +41,9 @@ Admin can restore an user using "/invite nickname".
 ### Desgin
 The design of the page can be found inside `vpwa/VPWA - Slack Clone`. It contains the .png files from figma based off of Slack.
 Simple yet beautiful desing which we then implement with Quasar and VueJS
-[Main Screen](</VPWA - Slack Clone/channel screen and main.png>)
-[Login Screen](</VPWA - Slack Clone/login screen.png>)
-[Register Screen](</VPWA - Slack Clone/register screen.png>)
+![Main Screen](</VPWA - Slack Clone/channel screen and main.png>)
+![Login Screen](</VPWA - Slack Clone/login screen.png>)
+![Register Screen](</VPWA - Slack Clone/register screen.png>)
 
 ### Technology
 Throughout the project we used Quasar and VueJS. Essentialy we built the frontend of our application and it's logic.
