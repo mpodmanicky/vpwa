@@ -1,16 +1,15 @@
 <template>
   <div class="user">
-  <!-- User button that opens the menu -->
+    <!-- User button that opens the menu -->
     <q-btn color="primary" text-color="white" icon="person" class="userBton">
       <!--When clik button-->
       <q-menu>
         <div class="settings row no-wrap q-pa-md">
           <div class="column">
-  
             <div class="text-h6 q-mb-md">Settings</div>
-
-            <q-toggle v-model="muteNotification" label="Notifications" />
-            <q-toggle v-model="statusOffline" label="Invisible" />
+            <q-radio v-model="user_status" val="online" label="Online" />
+            <q-radio v-model="user_status" val="offline" label="Offline" />
+            <q-radio v-model="user_status" val="do not disturb" label="Do not Disturb" />
           </div>
           <q-separator vertical inset class="q-mx-lg" />
 
@@ -23,7 +22,6 @@
               class="custom-avatar"
             />
 
-          
             <div class="text-subtitle1 q-mt-md q-mb-xs">
               {{ store.username }}
             </div>
@@ -39,8 +37,7 @@
       </q-menu>
     </q-btn>
 
-     
-<!-- Logout confirmation dialog -->
+    <!-- Logout confirmation dialog -->
     <q-dialog v-model="logoutDialogVisible" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
@@ -73,12 +70,12 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { store } from "src/store/store.js";
-
+const user_status = ref("online")
 const muteNotification = ref(true);
 const statusOffline = ref(false);
 const logoutDialogVisible = ref(false);
 const router = useRouter();
-
+console.log(user_status.value)
 const showLogoutDialog = () => {
   logoutDialogVisible.value = true;
 };
@@ -86,7 +83,7 @@ const showLogoutDialog = () => {
 const handleLogout = () => {
   console.log("Logged out");
   logoutDialogVisible.value = false;
-  store.username = '';
+  store.username = "";
   router.replace("/");
 };
 </script>
