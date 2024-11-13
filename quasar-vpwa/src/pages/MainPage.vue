@@ -70,6 +70,9 @@ function handleChannelSelection(channelName) {
 function handleAddChannel(channelData) {
   channelName = channelData.channelName;
   channelVisibility = channelData.visibility;
+  if(!channels.value.includes(channelName)) {
+    create()
+  }
 }
 
 function loadMessages() {
@@ -84,7 +87,7 @@ function handleCommand(command) {
   switch (command.type) {
     case "create":
       channelName = command.channelName.trim();
-      if(channels.value.includes(channelName)) {
+      if(!channels.value.includes(channelName)) {
         create()
       }
       break;
@@ -125,9 +128,6 @@ function loadChannels() {
 }
 loadChannels();
 
-
-
-// api calls
 function create() {
   fetch("http://localhost:3333/createChannel", {
     method: "POST",
