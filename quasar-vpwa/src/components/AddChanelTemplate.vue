@@ -12,7 +12,7 @@
         style="margin-right: 40px; margin-top: 40px;"
       />
     </div>
-  
+
     <q-dialog v-model="dialogOpen" @hide="resetDialog">
         <q-card class="q-card--rounded" style="border-radius: 16px;">
             <div class="menuJoinChannel">
@@ -26,19 +26,15 @@
                         filled
                         @keyup.enter="addChannel"
                     />
-                    <div class="row items-center q-mt-md">
-                        <div class="text-subtitle1 q-mr-md">Public Channel</div>
-                        <q-toggle
-                            v-model="isPublic"
-                            color="primary"
-                            left-label
-                        />
+                    <div>
+                      <q-radio v-model="channel_visibility" val="public" label="Public" />
+                      <q-radio v-model="channel_visibility" val="private" label="Private" />
                     </div>
                     <span v-if="channelNameError" style="color: red; font-size: 12px;">Channel cannot be empty</span>
-                </q-card-section>      
+                </q-card-section>
                 <q-card-actions style="justify-content: space-between;">
-                    <q-btn label="Cancel" 
-                        color="grey" 
+                    <q-btn label="Cancel"
+                        color="grey"
                         @click="closeDialog"
                         style="flex: 1; margin-right: 10px;"
                     />
@@ -65,24 +61,23 @@ const selectionMade = ref(null);
 const channelName = ref('');
 const isPublic = ref(true);
 const channelNameError = ref(false);
-
+const channel_visibility = ref("public")
 function addChannel() {
-    console.log("Channel Name in addChannel:", channelName.value); 
     if (channelName.value.trim()) {
         emit('addChannel', {
-            channelName: channelName.value, 
-            isPublic: isPublic.value  
+            channelName: channelName.value,
+            visibility: channel_visibility.value,
         });
         closeDialog();
         resetDialog();
     } else {
-        channelNameError.value = true; 
+        channelNameError.value = true;
     }
 }
 
 function resetDialog() {
     selectionMade.value = null;
-    channelName.value = ''; 
+    channelName.value = '';
     isPublic.value = true;
 }
 

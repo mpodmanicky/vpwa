@@ -8,12 +8,12 @@
             Button to add a Channel
          -->
         <AddChannelTemplate
-             @addChannel="addChannel" 
+             @addChannel="addChannel"
         />
-        <div class="channels"> 
-            <ChannelTemplate 
-            v-for="channel in channels" 
-            :key="channel" 
+        <div class="channels">
+            <ChannelTemplate
+            v-for="channel in channels"
+            :key="channel"
             :channelName="channel"
             @channelSelected="selectChannel"
             @deleteChannel="handleDeleteChannel"
@@ -69,6 +69,6 @@ function handleDeleteChannel(channelName){
 }
 
 .channels {
-    padding: 2px 5px 0 5px; 
+    padding: 2px 5px 0 5px;
 }
 </style>

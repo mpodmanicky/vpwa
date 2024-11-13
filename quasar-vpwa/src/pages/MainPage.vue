@@ -57,10 +57,48 @@ import { store } from "src/store/store.js";
 
 const drawerOpen = ref(false);
 var channelName = ""; //variable for channel name to be able to load from db
-
+var channelVisibility = "public";
 const channels = ref(["General"]); //List of channels
 const currentChannel = ref("General"); // Current Channel Select
 const channelMessages = ref({});
+
+function handleChannelSelection(channelName) {
+  currentChannel.value = channelName;
+  console.log(`Channel selected: ${channelName}`);
+}
+
+function handleAddChannel(channelData) {
+  channelName = channelData.channelName;
+  channelVisibility = channelData.visibility;
+}
+
+function loadMessages() {
+  if (currentChannel.value !== "General") {
+  } else {
+    console.log("no messages for this channel");
+  }
+}
+
+//function to handle commands
+function handleCommand(command) {
+  switch (command.type) {
+    case "create":
+      channelName = command.channelName.trim();
+      if(channels.value.includes(channelName)) {
+        create()
+      }
+      break;
+    case "delete":
+      channelName = command.channelName.trim();
+      if (channels.value.includes(channelName)) {
+        deleteChannel()
+      }
+      break;
+    default:
+      console.log("Unknown command....");
+  }
+}
+
 function loadChannels() {
   const username = store.username;
   fetch("http://localhost:3333/channels", {
@@ -86,46 +124,8 @@ function loadChannels() {
     });
 }
 loadChannels();
-//function to select the channel in the SideTemplate
-function handleChannelSelection(channelName) {
-  currentChannel.value = channelName;
-  console.log(`Channel selected: ${channelName}`);
-}
-//function to handle commands
-function handleCommand(command) {
-  switch (command.type) {
-    case "create":
-      channelName = command.channelName.trim();
-      create_channel(channelName);
-      break;
-    case "delete":
-      channelName = command.channelName.trim();
-      delete_channel(channelName);
-      break;
-    default:
-      console.log("Unknown command....");
-  }
-}
-//function to create channels
-function create_channel(channelName) {
-  if (!channels.value.includes(channelName)) {
-    create();
-    console.log(`Channel '${channelName}' created.`);
-    currentChannel.value = channelName;
-  } else {
-    console.log(`Channel '${channelName}' already exists.`);
-  }
-}
-//function to delete channels
-function delete_channel(channelName) {
-  if (channels.value.includes(channelName)) {
-    deleteChannel();
-  }
-}
-function handleAddChannel(channelData) {
-  channelName = channelData.channelName;
-  create_channel(channelData.channelName);
-}
+
+
 
 // api calls
 function create() {
@@ -135,7 +135,7 @@ function create() {
     body: JSON.stringify({
       username: store.username,
       name: channelName,
-      visibility: "private",
+      visibility: channelVisibility,
     }),
   })
     .then((response) => {
@@ -152,12 +152,7 @@ function create() {
       console.log(error);
     });
 }
-function loadMessages() {
-  if (currentChannel.value !== "General") {
-  } else {
-    console.log("no messages for this channel");
-  }
-}
+
 function deleteChannel() {
   fetch("http://localhost:3333/deleteChannel", {
     method: "POST",
