@@ -5,17 +5,17 @@
                 This part is for Pc.
             -->
             <div v-if="$q.screen.gt.sm" class="sideTemplate ">
-                <SideTemplate 
-                  :channels="channels" 
+                <SideTemplate
+                  :channels="channels"
                   @addChannel="handleAddChannel"
-                  @channelSelected="handleChannelSelection" 
+                  @channelSelected="handleChannelSelection"
                   @deleteChannel="delete_channel"
                 />
-              </div>  
+              </div>
             <!--
                 This part is for mobiles
             -->
-            <div v-if="$q.screen.lt.md" class="dummyDivResponsive">  
+            <div v-if="$q.screen.lt.md" class="dummyDivResponsive">
             <q-btn
                 flat
                 @click="drawerOpen = !drawerOpen"
@@ -26,14 +26,14 @@
             </div>
             <q-drawer v-model="drawerOpen" side="left" bordered>
                 <div class="sideTemplateForMobile ">
-                  <SideTemplate 
-                    :channels="channels" 
+                  <SideTemplate
+                    :channels="channels"
                     @addChannel="handleAddChannel"
-                    @channelSelected="handleChannelSelection" 
+                    @channelSelected="handleChannelSelection"
                     @deleteChannel="delete_channel"
                   />
                 </div>
-              </q-drawer>    
+              </q-drawer>
 
             <div class="chatTemplate">
                 <ChatTemplate
@@ -42,7 +42,6 @@
                 @command="handleCommand" />
             </div>
         </div>
-      </q-drawer>
 
       <div class="chatTemplate">
         <ChatTemplate
@@ -51,7 +50,6 @@
           @command="handleCommand"
         />
       </div>
-    </div>
   </q-page>
 </template>
 

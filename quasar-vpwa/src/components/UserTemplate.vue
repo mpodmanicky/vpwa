@@ -1,6 +1,6 @@
 <template>
     <div class="user">
-        <q-btn color="$primary" 
+        <q-btn color="$primary"
                text-color="white"
                icon="person"
                class="userBton"
@@ -13,9 +13,9 @@
                          v-model="muteNotification" label="Notifications" />
                       <q-toggle v-model="statusOffline" label="Invisible" />
                     </div>
-          
+
                     <q-separator vertical inset class="q-mx-lg" />
-          
+
                     <div class="column items-center">
                       <q-avatar
                         color="primary"
@@ -24,9 +24,9 @@
                         icon="person"
                         class="custom-avatar"
                       />
-          
+
                       <div class="text-subtitle1 q-mt-md q-mb-xs">Username</div>
-          
+
                       <q-btn
                         color="primary"
                         label="Logout"
@@ -88,7 +88,6 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
-  </div>
 </template>
 
 <script setup>
