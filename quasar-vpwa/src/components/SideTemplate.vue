@@ -16,6 +16,7 @@
             :key="channel" 
             :channelName="channel"
             @channelSelected="selectChannel"
+            @deleteChannel="handleDeleteChannel"
         />
         </div>
         </q-scroll-area>
@@ -33,7 +34,7 @@ const props = defineProps({
     required: true
   }
 })
-const emit = defineEmits(['channelSelected', 'addChannel']);
+const emit = defineEmits(['channelSelected', 'addChannel', 'deleteChannel']);
 
 //Just emiting the functions to the father.
 function addChannel(channelData) {
@@ -43,6 +44,9 @@ function addChannel(channelData) {
 
 function selectChannel(channelName) {
   emit('channelSelected', channelName);
+}
+function handleDeleteChannel(channelName){
+  emit('deleteChannel', channelName)
 }
 </script>
 

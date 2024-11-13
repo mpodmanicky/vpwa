@@ -1,13 +1,43 @@
 <template>
-  <div class="user">
-    <q-btn color="$primary" text-color="white" icon="person" class="userBton">
-      <q-menu>
-        <div class="settings row no-wrap q-pa-md">
-          <div class="column">
-            <div class="text-h6 q-mb-md">Settings</div>
-            <q-toggle v-model="muteNotification" label="Notifications" />
-            <q-toggle v-model="statusOffline" label="Invisible" />
-          </div>
+    <div class="user">
+        <q-btn color="$primary" 
+               text-color="white"
+               icon="person"
+               class="userBton"
+        >
+            <q-menu>
+                <div class="settings row no-wrap q-pa-md">
+                    <div class="column">
+                      <div class="text-h6 q-mb-md">Settings</div>
+                      <q-toggle
+                         v-model="muteNotification" label="Notifications" />
+                      <q-toggle v-model="statusOffline" label="Invisible" />
+                    </div>
+          
+                    <q-separator vertical inset class="q-mx-lg" />
+          
+                    <div class="column items-center">
+                      <q-avatar
+                        color="primary"
+                        size="50px"
+                        round
+                        icon="person"
+                        class="custom-avatar"
+                      />
+          
+                      <div class="text-subtitle1 q-mt-md q-mb-xs">Username</div>
+          
+                      <q-btn
+                        color="primary"
+                        label="Logout"
+                        push
+                        size="sm"
+                        @click="showLogoutDialog"
+                      />
+                    </div>
+                  </div>
+            </q-menu>
+        </q-btn>
 
           <q-separator vertical inset class="q-mx-lg" />
 
@@ -33,9 +63,6 @@
             />
           </div>
         </div>
-      </q-menu>
-    </q-btn>
-
     <q-dialog v-model="logoutDialogVisible" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
