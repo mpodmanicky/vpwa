@@ -53,11 +53,11 @@ import LogInTemplate from "src/components/LogInTemplate.vue";
 import RegisterTemplate from "src/components/RegisterTemplate.vue";
 const isLogIn = ref(true);
 const router = useRouter();
+import { store } from 'src/store/store.js'
 
 function handleLogin(credentials) {
   if (credentials.email.value !== "" && credentials.password.value !== "") {
-    console.log(credentials);
-    loginUser(credentials.email.value, credentials.password.value);
+    loginUser(credentials.email, credentials.password);
   }
 }
 
@@ -86,12 +86,22 @@ async function registerUser(credentials) {
   // we'll be using fetch
   fetch("http://localhost:3333/registerUser", {
     method: "POST",
-    "Content-type": "application/json",
+    headers: {
+      "Content-type": "application/json",
+    },
     body: JSON.stringify(user),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if(response.ok) {
+      return response.json()
+      } else {
+      throw new Error ('Registration failed')
+      }
+    })
     .then((data) => {
-      console.log(data);
+      store.username = data.username
+      router.replace("slack");
+      console.log(store.username);
     })
     .catch((error) => {
       console.log(error);
@@ -99,20 +109,30 @@ async function registerUser(credentials) {
 }
 async function loginUser(inputEmail, inputPassword) {
   var user = {
-    email: inputEmail,
-    password: inputPassword,
+    email: inputEmail.value,
+    password: inputPassword.value,
   };
   fetch("http://localhost:3333/loginUser", {
     method: "POST",
-    "Content-type": "application/json",
+    headers: {
+      "Content-type": "application/json",
+    },
     body: JSON.stringify(user),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if(response.ok) {
+        return response.json()
+      } else {
+        throw new Error('Login failed')
+      }
+    })
     .then((data) => {
       //after successful login we prompt the user to mainpage saving user state and loading all the shit
       //channels
       //user
-      console.log(data);
+      store.username = data.username
+      router.replace('slack');
+      console.log(store.username);
     })
     .catch((error) => {
       console.log(error);

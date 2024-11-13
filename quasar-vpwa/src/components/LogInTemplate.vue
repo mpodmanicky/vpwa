@@ -32,11 +32,7 @@
   >
     {{ errorMessage }}
   </q-banner>
-  <q-btn
-    color="primary"
-    label="Log In"
-    @click="emitCredentials"
-  />
+  <q-btn color="primary" label="Log In" @click="emitCredentials" />
 </template>
 
 <script setup>
@@ -44,8 +40,8 @@ import { ref } from "vue";
 const isPwd = ref(true);
 const password = ref("");
 const email = ref("");
-
+const emit = defineEmits(['login']);
 function emitCredentials() {
-  this.$emit('login', {email: this.email, pasword: this.password});
+  emit("login", { email: email, password: password });
 }
 </script>
