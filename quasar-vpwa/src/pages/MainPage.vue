@@ -9,6 +9,7 @@
                   :channels="channels" 
                   @addChannel="handleAddChannel"
                   @channelSelected="handleChannelSelection" 
+                  @deleteChannel="delete_channel"
                 />
               </div>  
             <!--
@@ -29,6 +30,7 @@
                     :channels="channels" 
                     @addChannel="handleAddChannel"
                     @channelSelected="handleChannelSelection" 
+                    @deleteChannel="delete_channel"
                   />
                 </div>
               </q-drawer>    
@@ -96,15 +98,21 @@ import { data } from 'autoprefixer';
             channels.value = channels.value.filter(channel => channel !== channelName);
             delete channelMessages.value[channelName];
             console.log(`Channel '${channelName}' deleted.`);
-             currentChannel.value = ""
+            if(channelName == currentChannel.value){
+                currentChannel.value = ""
+            }
         } else {
             console.log(`Channel '${channelName}' does not exist.`);
         }
     };
+    //function to add the channel from gui
     function handleAddChannel(channelData) {
         create_channel(channelData.channelName)
     }
-
+    //function to delete the channel from the gui
+    function handleDeleteChannel(channelName) {
+        delete_channel(channelName)
+    }
 
 </script>
 

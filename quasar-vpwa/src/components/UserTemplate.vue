@@ -9,7 +9,8 @@
                 <div class="settings row no-wrap q-pa-md">
                     <div class="column">
                       <div class="text-h6 q-mb-md">Settings</div>
-                      <q-toggle v-model="muteNotification" label="Notifications" />
+                      <q-toggle
+                         v-model="muteNotification" label="Notifications" />
                       <q-toggle v-model="statusOffline" label="Invisible" />
                     </div>
           
