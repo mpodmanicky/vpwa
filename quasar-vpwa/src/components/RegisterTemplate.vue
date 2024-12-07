@@ -9,6 +9,7 @@
       type="text"
       label="Name"
       style="margin: 15px 0; width: 300px"
+      class="input"
     />
     <q-input
       v-model="username"
@@ -17,7 +18,8 @@
       bg-color="accent"
       type="text"
       label="Username"
-      style="margin: 15px 0"
+      style="margin: 15px 0; width: 300px"
+      class="input"
     />
     <q-input
       v-model="email"
@@ -26,7 +28,8 @@
       bg-color="accent"
       type="email"
       label="Email"
-      style="margin: 15px 0"
+      style="margin: 15px 0; width: 300px"
+      class="input"
     />
     <q-input
       v-model="password"
@@ -35,7 +38,8 @@
       bg-color="accent"
       :type="isPwd ? 'password' : 'text'"
       label="Password"
-      style="margin: 15px 0"
+      style="margin: 15px 0; width: 300px"
+      class="input"
     >
       <template v-slot:append>
         <q-icon
@@ -52,7 +56,8 @@
       bg-color="accent"
       :type="isPwd ? 'password' : 'text'"
       label="Password"
-      style="margin: 15px 0"
+      style="margin: 15px 0; width: 300px"
+      class="input"
     >
       <template v-slot:append>
         <q-icon
@@ -69,7 +74,13 @@
     >
       {{ errorMessage }}
     </q-banner>
-    <q-btn color="primary" label="Register" @click="emitCredentials" />
+    <q-btn 
+        color="primary" 
+        label="Register"
+        style="width: 100px; position: absolute"
+        rounded
+        @click="emitCredentials" 
+    />
   </div>
 </template>
 
@@ -119,3 +130,10 @@ function emitCredentials() {
       return true;
     };*/
 </script>
+<style lang="scss" scoped>
+@media (max-width: 320px) {
+  .input {
+    width: 250px !important;
+  }
+}
+</style>

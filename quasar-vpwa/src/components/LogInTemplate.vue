@@ -7,6 +7,7 @@
     type="text"
     label="Email"
     style="margin: 15px 0; width: 300px"
+    class="inputLogIn"
   />
   <q-input
     v-model="password"
@@ -16,6 +17,7 @@
     :type="isPwd ? 'password' : 'text'"
     label="Password"
     style="margin: 15px 0; width: 300px"
+    class="inputLogIn"
   >
     <template v-slot:append>
       <q-icon
@@ -32,7 +34,14 @@
   >
     {{ errorMessage }}
   </q-banner>
-  <q-btn color="primary" label="Log In" @click="emitCredentials" />
+
+  <q-btn 
+    class="bton"
+    color="primary" 
+    style="width: 100px; position: absolute"
+    label="Log In" 
+    rounded
+    @click="emitCredentials" />
 </template>
 
 <script setup>
@@ -40,8 +49,18 @@ import { ref } from "vue";
 const isPwd = ref(true);
 const password = ref("");
 const email = ref("");
+const errorMessage = ref(null);
 const emit = defineEmits(['login']);
 function emitCredentials() {
-  emit("login", { email: email, password: password });
+  emit("login", { email: email.value, password: password.value });
 }
 </script>
+
+<style lang="scss" scoped>
+
+  @media (max-width: 320px) {
+    .inputLogIn {
+      width: 250px !important;
+    }
+  }
+</style>
