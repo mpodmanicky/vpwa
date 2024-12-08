@@ -36,9 +36,9 @@
           @command="handleCommand"
         />
       </div>
-  </div>
+    </div>
 
-   <!-- <div class="chatTemplate">
+    <!-- <div class="chatTemplate">
       <ChatTemplate
         :currentChannel="currentChannel"
         :messages="channelMessages[currentChannel]"
@@ -54,7 +54,7 @@ import SideTemplate from "src/components/SideTemplate.vue";
 import ChatTemplate from "src/components/ChatTemplate.vue";
 import { data } from "autoprefixer";
 import { store } from "src/store/store.js";
-
+const URL = "http://localhost:3333/";
 const drawerOpen = ref(false);
 var channelName = ""; //variable for channel name to be able to load from db
 var channelVisibility = "public";
@@ -70,8 +70,8 @@ function handleChannelSelection(channelName) {
 function handleAddChannel(channelData) {
   channelName = channelData.channelName;
   channelVisibility = channelData.visibility;
-  if(!channels.value.includes(channelName)) {
-    create()
+  if (!channels.value.includes(channelName)) {
+    create();
   }
 }
 
@@ -87,15 +87,19 @@ function handleCommand(command) {
   switch (command.type) {
     case "create":
       channelName = command.channelName.trim();
-      if(!channels.value.includes(channelName)) {
-        create()
+      if (!channels.value.includes(channelName)) {
+        create();
       }
       break;
     case "delete":
       channelName = command.channelName.trim();
       if (channels.value.includes(channelName)) {
-        deleteChannel()
+        deleteChannel();
       }
+      break;
+    case "join":
+      channelName = command.channelName.trim();
+      addUser();
       break;
     default:
       console.log("Unknown command....");
@@ -104,7 +108,7 @@ function handleCommand(command) {
 
 function loadChannels() {
   const username = store.username;
-  fetch("http://localhost:3333/channels", {
+  fetch("http://localhost:3333/channel", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ username: username }),
@@ -181,7 +185,18 @@ function deleteChannel() {
       console.log(error);
     });
 }
-function addUser() {}
+function addUser() {
+  fetch(URL + "joinChannel", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ username: store.username, channel: channelName }),
+  })
+    .then((response) => {})
+    .then((data) => {})
+    .catch((err) => {
+      console.log(err);
+    });
+}
 function removeUser() {}
 function setNotifications() {}
 function setVisibility() {}

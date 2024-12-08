@@ -127,9 +127,6 @@ async function loginUser(inputEmail, inputPassword) {
       }
     })
     .then((data) => {
-      //after successful login we prompt the user to mainpage saving user state and loading all the shit
-      //channels
-      //user
       store.username = data.username
       router.replace('slack');
       console.log(store.username);
