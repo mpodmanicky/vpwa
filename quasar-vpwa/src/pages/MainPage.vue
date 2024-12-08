@@ -25,6 +25,7 @@
             @addChannel="handleAddChannel"
             @channelSelected="handleChannelSelection"
             @deleteChannel="delete_channel"
+            @userVisibility="setUserStatus"
           />
         </div>
       </q-drawer>
@@ -104,6 +105,21 @@ function handleCommand(command) {
     default:
       console.log("Unknown command....");
   }
+}
+
+function userVisibility(status) {
+  const userStatus = status.status;
+  store.status = userStatus;
+  fetch(URL + "user", {
+    method: "PATCH",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ username: store.username }),
+  })
+    .then((response) => {})
+    .then((data) => {})
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function loadChannels() {
@@ -199,7 +215,6 @@ function addUser() {
 }
 function removeUser() {}
 function setNotifications() {}
-function setVisibility() {}
 function postMessage() {}
 </script>
 

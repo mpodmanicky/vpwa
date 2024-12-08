@@ -86,6 +86,10 @@ const handleLogout = () => {
   store.username = "";
   router.replace("/");
 };
+
+function setUserStatus(){
+  emit("status", { status: user_status });
+}
 </script>
 
 <style lang="scss" scoped>

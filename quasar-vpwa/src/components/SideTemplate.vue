@@ -1,7 +1,7 @@
 <template>
     <div class="sideBar">
         <div class="users">
-            <UserTemplate />
+            <UserTemplate @userVisibility="setUserStatus"/>
         </div>
         <q-scroll-area class="servers">
         <!--
