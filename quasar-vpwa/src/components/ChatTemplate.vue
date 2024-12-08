@@ -8,19 +8,17 @@
     <div class="statusOptions"></div>
   </div>
   <div class="messages">
-    <q-infinite-scroll @load="onLoad" reverse>
-      <p v-if="messages.length === 0">No messages yet.</p>
+    <q-infinite-scroll>
+      <p v-if="Messages.length === 0">No messages yet.</p>
       <MessageTemplate
         v-for="(msg, index) in messages"
         :key="index"
         :username="msg.username"
-        :message="msg.text"
+        :message="msg.message"
       />
-      <!-- Dummy div used for scrolling to the newest message -->
       <div ref="newestMessage"></div>
     </q-infinite-scroll>
   </div>
-  <!--incoming messages will be displayed on the left side of the chat while outgoing on the right side-->
   <div class="commandline">
     <CommandlineTemplate
       :currentChannel="currentChannel"
@@ -42,6 +40,8 @@ const newestMessage = ref(null); // Reference for the newest message div
 
 const socket = io('http://localhost:3333')
 
+const emit = defineEmits(["command"]);
+
 const props = defineProps({
   currentChannel: {
     type: String,
@@ -50,21 +50,27 @@ const props = defineProps({
   channels: {
     type: Array,
     required: true,
+  },
+  messages: {
+    type: Array,
+    required: true,
   }
 });
+const Messages = ref([])
+Messages.value = props.messages;
 
-const emit = defineEmits(["command"]);
 onMounted(() => {
   props.channels.forEach((channel) => {
     socket.emit("join", channel);
   });
   // listen for messages
   socket.on("receive_message", (data) => {
-    if (data.channel === currentChannel.value) {
-      messages.value.push({
+    if (data.channel === props.currentChannel) {
+      Messages.value.push({
         username: data.username,
         message: data.message,
       });
+      console.log(Messages.value)
       scrollToNewestMessage()
       // Trigger a notification
       $q.notify({
@@ -80,42 +86,18 @@ onMounted(() => {
 onUnmounted(() => {
   socket.disconnect();
 });
-
+const messageText = ref("")
 function sendMessage() {
   if (messageText.value.trim()) {
     socket.emit('send_message', {
-      channel: currentChannel.value,
-      username: 'YourUsername', // Replace with logged-in username
+      channel: props.currentChannel,
+      username: store.username,
       message: messageText.value.trim(),
     })
 
     messageText.value = '' // Clear input field
   }
 }
-const channelMessages = ref({
-  General: [],
-});
-const messages = computed(() => {
-  return channelMessages.value[props.currentChannel] || [];
-});
-
-// Loads more messages when scrolling up
-function onLoad() {
-  const currentLength = messages.value.length;
-  // Check if there are more messages to load for the current channel
-  if (currentLength < channelMessages.value[props.currentChannel]?.length) {
-    // Get the next set of messages
-    const moreMessages = channelMessages.value[props.currentChannel].slice(
-      currentLength,
-      currentLength + perPage
-    );
-    messages.value.unshift(...moreMessages); // Add them to the current messages
-  }
-  // Call done to tell Quasar infinite scroll component to stop loading
-  // done();
-}
-
-// Scrolls to the newest message after adding a new one
 function scrollToNewestMessage() {
   nextTick(() => {
     if (newestMessage.value) {
@@ -127,12 +109,13 @@ function scrollToNewestMessage() {
 function handleCommand(command) {
   const [mainCommand, ...args] = command.split(" ");
   const channelName = args[0];
+  const visibility = args[1];
 
   switch (mainCommand) {
     case "/create":
       if (channelName) {
         // Emit the command to the parent for creating a channel
-        emit("command", { type: "create", channelName });
+        emit("command", { type: "create", channelName, visibility });
         // Initialize the new channel messages
         channelMessages.value[channelName] = [];
       } else {
@@ -149,16 +132,29 @@ function handleCommand(command) {
         }
       }
       break;
-
+    case '/list':
+      if(channelName) {
+        if(channelName !== 'General') {
+          emit('command', { type: 'list', channelName })
+        } else {
+          console.log('Channel general is default for all users')
+        }
+      }
+      break
+    case '/join':
+      if(channelName) {
+        if(channelName !== 'General') {
+          emit('command', { type: 'join', channelName })
+        } else {
+          console.log('Cannot join channel General...')
+        }
+      }
+      break
     default:
       // Add the message to the current channel's message array
-      if (!channelMessages.value[props.currentChannel]) {
-        channelMessages.value[props.currentChannel] = [];
-      }
-      channelMessages.value[props.currentChannel].push({
-        username: store.username,
-        text: command,
-      });
+      messageText.value = command
+      sendMessage()
+      console.log(messageText)
   }
 }
 </script>

@@ -34,12 +34,32 @@
         <ChatTemplate
           :channels="channels"
           :currentChannel="currentChannel"
-          :messages="channelMessages[currentChannel]"
+          :messages="channelMessages"
           @command="handleCommand"
         />
       </div>
     </div>
-
+    <!-- User List Modal -->
+    <q-dialog v-model="showUserList">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Users in Channel: {{ currentChannel }}</div>
+        </q-card-section>
+        <q-card-section>
+          <div v-if="listedUsers.length > 0">
+            <q-list>
+              <q-item v-for="(user, index) in listedUsers" :key="index">
+                <q-item-section>{{ user }}</q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+          <div v-else>No users found in this channel.</div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Close" color="primary" @click="clearListedUsers" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
     <!-- <div class="chatTemplate">
       <ChatTemplate
         :currentChannel="currentChannel"
@@ -65,10 +85,12 @@ var channelName = ""; //variable for channel name to be able to load from db
 var channelVisibility = ref("private");
 const channels = ref(["General"]); //List of channels
 const currentChannel = ref("General"); // Current Channel Select
-const channelMessages = ref({})
+const channelMessages = ref([]);
+const showUserList = ref(false);
 
 function handleChannelSelection(channelName) {
   currentChannel.value = channelName;
+  loadMessage()
   console.log(`Channel selected: ${channelName}`);
 }
 
@@ -84,8 +106,12 @@ function handleAddChannel(channelData) {
 function handleCommand(command) {
   switch (command.type) {
     case "create":
+      const visibility = command.visibility.trim();
       channelName = command.channelName.trim();
       if (!channels.value.includes(channelName)) {
+        if (visibility === "private" || visibility === "public") {
+          channelVisibility.value = visibility;
+        }
         create();
       }
       break;
@@ -95,9 +121,19 @@ function handleCommand(command) {
         deleteChannel();
       }
       break;
+    case "list":
+      channelName = command.channelName.trim();
+      if (channels.value.includes(channelName)) {
+        listUsers(channelName);
+      }
+      break;
     case "join":
       channelName = command.channelName.trim();
-      addUser();
+      if (channels.value.includes(channelName)) {
+        throw new Error("Already a member");
+      } else {
+        addUser();
+      }
       break;
     case "invite":
       //invite user to public/private channel
@@ -114,6 +150,36 @@ function handleCommand(command) {
     default:
       console.log("Unknown command....");
   }
+}
+
+const listedUsers = [];
+function listUsers(name) {
+  fetch(URL + "list", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ channel: name }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error while listing users...");
+      }
+    })
+    .then((data) => {
+      data.users.forEach((user) => {
+        listedUsers.push(user.username);
+      }); // Populate users
+      showUserList.value = true; // Show dialog
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function clearListedUsers() {
+  listedUsers.length = 0; // Clear the list
+  showUserList.value = false; // Close the dialog
 }
 
 function userVisibility(status) {
@@ -148,7 +214,9 @@ function loadChannels() {
     .then((data) => {
       console.log(data.channels);
       for (let i = 0; i < data.channels.length; i++) {
-        channels.value.push(data.channels[i].name);
+        if (!channels.value.includes(data.channels[i].name)) {
+          channels.value.push(data.channels[i].name);
+        }
       }
     })
     .catch((error) => {
@@ -196,15 +264,7 @@ function deleteChannel() {
       }
     })
     .then((data) => {
-      console.log(data.message);
-      if (channels.value.includes(channelName)) {
-        channels.value = channels.value.filter(
-          (channel) => channel !== channelName
-        );
-        console.log(`Channel '${channelName}' deleted.`);
-      } else {
-        console.log(`Channel '${channelName}' does not exist.`);
-      }
+      loadChannels()
     })
     .catch((error) => {
       console.log(error);
@@ -216,15 +276,50 @@ function addUser() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ username: store.username, channel: channelName }),
   })
-    .then((response) => {})
-    .then((data) => {})
+    .then((response) => {
+      if (response.ok) {
+        loadChannels();
+        return response.json();
+      } else {
+        throw new Error("Error while joining a channel");
+      }
+    })
+    .then((data) => {
+      console.log(data);
+    })
     .catch((err) => {
       console.log(err);
     });
 }
 function removeUser() {}
 function setNotifications() {}
-function postMessage() {}
+function loadMessage() {
+  fetch(URL + "messages", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ channel: currentChannel.value }),
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Error while loading messages");
+      }
+    })
+    .then((data) => {
+      channelMessages.value.length = 0;
+      data.messages.forEach((message) => {
+        channelMessages.value = data.messages.map((msg) => ({
+          username: msg.user.username,
+          message: msg.messageData
+        }))
+      });
+      console.log(channelMessages.value)
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 </script>
 
 <style lang="scss" scoped>
