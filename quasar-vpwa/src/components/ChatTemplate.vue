@@ -31,6 +31,7 @@
 <script setup>
 import { ref, nextTick, computed, watch, onMounted, onUnmounted } from "vue";
 import { useQuasar } from 'quasar'
+import { io } from 'socket.io-client'
 import MessageTemplate from "src/components/MessageTemplate.vue";
 import CommandlineTemplate from "src/components/CommandlineTemplate.vue";
 import { store } from "src/store/store.js";
@@ -39,16 +40,22 @@ const $q = useQuasar()
 const perPage = 5; // Number of messages to load per scroll
 const newestMessage = ref(null); // Reference for the newest message div
 
+const socket = io('http://localhost:3333')
+
 const props = defineProps({
   currentChannel: {
     type: String,
     required: true,
   },
+  channels: {
+    type: Array,
+    required: true,
+  }
 });
 
 const emit = defineEmits(["command"]);
 onMounted(() => {
-  channels.value.forEach((channel) => {
+  props.channels.forEach((channel) => {
     socket.emit("join", channel);
   });
   // listen for messages
@@ -85,13 +92,9 @@ function sendMessage() {
     messageText.value = '' // Clear input field
   }
 }
-// Create a ref to store the messages for each channel
 const channelMessages = ref({
-  // Default channel 'General', it will be dynamically extended with other channels
   General: [],
 });
-
-// Get the messages for the current channel dynamically using computed property
 const messages = computed(() => {
   return channelMessages.value[props.currentChannel] || [];
 });

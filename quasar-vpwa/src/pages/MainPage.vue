@@ -32,6 +32,7 @@
 
       <div class="chatTemplate">
         <ChatTemplate
+          :channels="channels"
           :currentChannel="currentChannel"
           :messages="channelMessages[currentChannel]"
           @command="handleCommand"
@@ -51,8 +52,6 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
-import { io } from "socket.io-client";
-import { useQuasar } from "quasar";
 import SideTemplate from "src/components/SideTemplate.vue";
 import ChatTemplate from "src/components/ChatTemplate.vue";
 import { data } from "autoprefixer";
@@ -66,7 +65,7 @@ var channelName = ""; //variable for channel name to be able to load from db
 var channelVisibility = ref("private");
 const channels = ref(["General"]); //List of channels
 const currentChannel = ref("General"); // Current Channel Select
-const $q = useQuasar();
+const channelMessages = ref({})
 
 function handleChannelSelection(channelName) {
   currentChannel.value = channelName;
