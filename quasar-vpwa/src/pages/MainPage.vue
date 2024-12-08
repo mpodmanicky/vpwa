@@ -50,18 +50,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
+import { io } from "socket.io-client";
+import { useQuasar } from "quasar";
 import SideTemplate from "src/components/SideTemplate.vue";
 import ChatTemplate from "src/components/ChatTemplate.vue";
 import { data } from "autoprefixer";
 import { store } from "src/store/store.js";
+
 const URL = "http://localhost:3333/";
+const socket = URL + "chat";
+
 const drawerOpen = ref(false);
 var channelName = ""; //variable for channel name to be able to load from db
-var channelVisibility = "public";
+var channelVisibility = ref("private");
 const channels = ref(["General"]); //List of channels
 const currentChannel = ref("General"); // Current Channel Select
-const channelMessages = ref({});
+const $q = useQuasar();
 
 function handleChannelSelection(channelName) {
   currentChannel.value = channelName;
@@ -70,16 +75,9 @@ function handleChannelSelection(channelName) {
 
 function handleAddChannel(channelData) {
   channelName = channelData.channelName;
-  channelVisibility = channelData.visibility;
+  channelVisibility.value = channelData.visibility;
   if (!channels.value.includes(channelName)) {
     create();
-  }
-}
-
-function loadMessages() {
-  if (currentChannel.value !== "General") {
-  } else {
-    console.log("no messages for this channel");
   }
 }
 
@@ -101,6 +99,18 @@ function handleCommand(command) {
     case "join":
       channelName = command.channelName.trim();
       addUser();
+      break;
+    case "invite":
+      //invite user to public/private channel
+      break;
+    case "revoke":
+      // revoke membership as owner of channel
+      break;
+    case "cancel":
+      // revoke membership as member
+      break;
+    case "kick":
+      // kick user after 3 kicks
       break;
     default:
       console.log("Unknown command....");

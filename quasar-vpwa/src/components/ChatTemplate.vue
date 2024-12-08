@@ -29,13 +29,16 @@
   </div>
 </template>
 <script setup>
-import { ref, nextTick, computed } from "vue";
+import { ref, nextTick, computed, watch, onMounted, onUnmounted } from "vue";
+import { useQuasar } from 'quasar'
 import MessageTemplate from "src/components/MessageTemplate.vue";
 import CommandlineTemplate from "src/components/CommandlineTemplate.vue";
 import { store } from "src/store/store.js";
 
+const $q = useQuasar()
 const perPage = 5; // Number of messages to load per scroll
 const newestMessage = ref(null); // Reference for the newest message div
+
 const props = defineProps({
   currentChannel: {
     type: String,
@@ -44,7 +47,44 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["command"]);
+onMounted(() => {
+  channels.value.forEach((channel) => {
+    socket.emit("join", channel);
+  });
+  // listen for messages
+  socket.on("receive_message", (data) => {
+    if (data.channel === currentChannel.value) {
+      messages.value.push({
+        username: data.username,
+        message: data.message,
+      });
+      scrollToNewestMessage()
+      // Trigger a notification
+      $q.notify({
+        type: "info",
+        message: `${data.username}: ${data.message.substring(0, 50)}...`,
+        timeout: 5000,
+        position: "top-right",
+      });
+    }
+  });
+});
 
+onUnmounted(() => {
+  socket.disconnect();
+});
+
+function sendMessage() {
+  if (messageText.value.trim()) {
+    socket.emit('send_message', {
+      channel: currentChannel.value,
+      username: 'YourUsername', // Replace with logged-in username
+      message: messageText.value.trim(),
+    })
+
+    messageText.value = '' // Clear input field
+  }
+}
 // Create a ref to store the messages for each channel
 const channelMessages = ref({
   // Default channel 'General', it will be dynamically extended with other channels
