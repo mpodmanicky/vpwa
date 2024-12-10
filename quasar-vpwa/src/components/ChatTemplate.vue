@@ -58,6 +58,9 @@ const props = defineProps({
 });
 const Messages = ref([]);
 Messages.value = props.messages;
+props.channels.forEach((channel) => {
+  socket.emit("join", channel);
+});
 
 onMounted(() => {
   watch(
@@ -71,6 +74,7 @@ onMounted(() => {
     },
     { immediate: true }
   );
+
   // listen for messages
   socket.on("receive_message", (data) => {
     if (data.channel === props.currentChannel) {
