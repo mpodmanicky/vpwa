@@ -36,6 +36,7 @@
           :currentChannel="currentChannel"
           :messages="channelMessages"
           @command="handleCommand"
+          @message="loadMessage"
         />
       </div>
     </div>
@@ -151,7 +152,6 @@ function handleCommand(command) {
       console.log("Unknown command....");
   }
 }
-
 const listedUsers = [];
 function listUsers(name) {
   fetch(URL + "list", {

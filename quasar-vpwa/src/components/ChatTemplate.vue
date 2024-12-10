@@ -28,19 +28,19 @@
 </template>
 <script setup>
 import { ref, nextTick, computed, watch, onMounted, onUnmounted } from "vue";
-import { useQuasar } from 'quasar'
-import { io } from 'socket.io-client'
+import { useQuasar } from "quasar";
+import { io } from "socket.io-client";
 import MessageTemplate from "src/components/MessageTemplate.vue";
 import CommandlineTemplate from "src/components/CommandlineTemplate.vue";
 import { store } from "src/store/store.js";
 
-const $q = useQuasar()
+const $q = useQuasar();
 const perPage = 5; // Number of messages to load per scroll
 const newestMessage = ref(null); // Reference for the newest message div
 
-const socket = io('http://localhost:3333')
+const socket = io("http://localhost:3333");
 
-const emit = defineEmits(["command"]);
+const emit = defineEmits(["command", "message"]);
 
 const props = defineProps({
   currentChannel: {
@@ -54,15 +54,23 @@ const props = defineProps({
   messages: {
     type: Array,
     required: true,
-  }
+  },
 });
-const Messages = ref([])
+const Messages = ref([]);
 Messages.value = props.messages;
 
 onMounted(() => {
-  props.channels.forEach((channel) => {
-    socket.emit("join", channel);
-  });
+  watch(
+    () => props.channels,
+    (newChannels) => {
+      if (newChannels.length > 0) {
+        props.channels.forEach((channel) => {
+          socket.emit("join", channel);
+        });
+      }
+    },
+    { immediate: true }
+  );
   // listen for messages
   socket.on("receive_message", (data) => {
     if (data.channel === props.currentChannel) {
@@ -70,15 +78,16 @@ onMounted(() => {
         username: data.username,
         message: data.message,
       });
-      console.log(Messages.value)
-      scrollToNewestMessage()
+      scrollToNewestMessage();
       // Trigger a notification
-      $q.notify({
-        type: "info",
-        message: `${data.username}: ${data.message.substring(0, 50)}...`,
-        timeout: 5000,
-        position: "top-right",
-      });
+      if (data.username !== store.username) {
+        $q.notify({
+          type: "info",
+          message: `${data.username}: ${data.message.substring(0, 50)}...`,
+          timeout: 5000,
+          position: "top-right",
+        });
+      }
     }
   });
 });
@@ -86,16 +95,16 @@ onMounted(() => {
 onUnmounted(() => {
   socket.disconnect();
 });
-const messageText = ref("")
+const messageText = ref("");
 function sendMessage() {
   if (messageText.value.trim()) {
-    socket.emit('send_message', {
+    socket.emit("send_message", {
       channel: props.currentChannel,
       username: store.username,
       message: messageText.value.trim(),
-    })
+    });
 
-    messageText.value = '' // Clear input field
+    messageText.value = ""; // Clear input field
   }
 }
 function scrollToNewestMessage() {
@@ -132,29 +141,29 @@ function handleCommand(command) {
         }
       }
       break;
-    case '/list':
-      if(channelName) {
-        if(channelName !== 'General') {
-          emit('command', { type: 'list', channelName })
+    case "/list":
+      if (channelName) {
+        if (channelName !== "General") {
+          emit("command", { type: "list", channelName });
         } else {
-          console.log('Channel general is default for all users')
+          console.log("Channel general is default for all users");
         }
       }
-      break
-    case '/join':
-      if(channelName) {
-        if(channelName !== 'General') {
-          emit('command', { type: 'join', channelName })
+      break;
+    case "/join":
+      if (channelName) {
+        if (channelName !== "General") {
+          emit("command", { type: "join", channelName });
         } else {
-          console.log('Cannot join channel General...')
+          console.log("Cannot join channel General...");
         }
       }
-      break
+      break;
     default:
       // Add the message to the current channel's message array
-      messageText.value = command
-      sendMessage()
-      console.log(messageText)
+      messageText.value = command;
+      sendMessage();
+      console.log(messageText);
   }
 }
 </script>
